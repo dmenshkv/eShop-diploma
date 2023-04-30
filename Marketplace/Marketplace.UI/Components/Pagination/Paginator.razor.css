@@ -1,0 +1,23 @@
+﻿.bgc-pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.bgc-pagination-container ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bgc-pagination-container li {
+    margin: 0 0.5rem;
+}
+
+.bgc-pagination-container li.active a {
+    color: white;
+    background-color: black;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+}

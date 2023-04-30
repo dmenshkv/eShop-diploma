@@ -1,0 +1,14 @@
+﻿<div>
+    @if (IsErrorActive)
+    {
+        <div class="alert alert-danger bgc-error-container">
+            <button type="button" class="btn-close bgc-close-error-button" data-dismiss="alert" @onclick="HideError"></button>
+            <h3>Error</h3>
+            <p>@Message</p>
+        </div>
+    }
+
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+</div>

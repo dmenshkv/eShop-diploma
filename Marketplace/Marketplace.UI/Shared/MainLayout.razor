@@ -1,0 +1,16 @@
+﻿@using Marketplace.UI.Components.Header
+@using Marketplace.UI.Components.Footer
+@inherits LayoutComponentBase
+
+<div>
+    <Header />
+    <div>
+        @Body
+    </div>
+    <Footer />
+</div>
+
+@code {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+}

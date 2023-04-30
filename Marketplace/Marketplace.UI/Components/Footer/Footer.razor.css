@@ -1,0 +1,13 @@
+﻿a {
+    color: #FFF;
+}
+
+.bgc-footer {
+    color: #FFFFFF;
+    background-color: #452505;
+    border-top: 1px solid #EEEEEE;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    padding-top: 2.5rem;
+    width: 100%;
+}

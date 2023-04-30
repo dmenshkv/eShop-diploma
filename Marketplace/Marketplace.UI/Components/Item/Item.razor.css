@@ -1,0 +1,23 @@
+﻿.bgc-item-thumbnail {
+    max-height: 240px;
+    max-width: 240px;
+    width: 100%;
+}
+
+.bgc-item-crop-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bgc-item-name {
+    color: #1a1a1a;
+    font-size: 1.1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.bgc-item-name:hover {
+    color: #f47721;
+}

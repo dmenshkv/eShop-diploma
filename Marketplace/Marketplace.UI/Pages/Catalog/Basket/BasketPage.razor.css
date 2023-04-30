@@ -1,0 +1,61 @@
+﻿.bgc-basket-container {
+    text-align: center;
+}
+
+.bgc-basket-items {
+    display: flex;
+    align-items: center;
+    word-break: break-word;
+}
+
+.bgc-basket-title {
+    font-size: 19px;
+    font-family: 'Open Sans';
+    color: #202020;
+    text-decoration: none;
+}
+
+.bgc-basket-price {
+    font-size: 19px;
+    font-family: 'Open Sans';
+}
+
+.bgc-basket-remove {
+    cursor: pointer;
+}
+
+.bgc-basket-checkout-container {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.bgc-basket-checkout {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bgc-basket-checkout-subtotal {
+    font-size: 19px;
+    font-family: 'Open Sans';
+    font-weight: 700;
+    color: #202020;
+}
+
+.bgc-basket-checkout-items-amount {
+    font-size: 16px;
+    font-family: 'Open Sans';
+    font-weight: 500;
+    color: #909090;
+    line-height: 10px;
+}
+
+.bgc-basket-checkout-items-price {
+    font-size: 19px;
+    font-family: 'Open Sans';
+    font-weight: 900;
+}
+
+.bgc-basket-price::before, bgc-basket-checkout-items-price::before {
+    content: '$';
+}

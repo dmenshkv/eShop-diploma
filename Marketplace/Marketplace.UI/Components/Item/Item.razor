@@ -1,0 +1,22 @@
+﻿<div>
+    <div>
+        <a href="@_path">
+            <img src="@BoardGame.PictureUrl" class="bgc-item-thumbnail" />
+        </a>
+    </div>
+    <div class="bgc-item-crop-name">
+        <a href="@_path" class="bgc-item-name">
+            @BoardGame.Name
+        </a>
+    </div>
+    <div class="bgc-item-price">
+        <span>
+            @BoardGame.Price.ToString("N2")
+        </span>
+    </div>
+    <div>
+        <button type="button" class="bgc-button" @onclick="NavigateToItem">
+            INFO
+        </button>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿.bgc-flex-container {
+    display: flex;
+}
+
+.bgc-catalog-item {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 32%;
+    display: inline-block;
+}
+
+.bgc-sidebar-container {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.bgc-column-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bgc-flex-column {
+    flex: 1;
+}

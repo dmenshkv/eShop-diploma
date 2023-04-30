@@ -1,0 +1,43 @@
+﻿.bgc-button {
+    background-color: #f47721;
+    border: 0;
+    color: #FFFFFF;
+    font-size: 1rem;
+    height: 3rem;
+    margin-top: 1rem;
+    width: 80%;
+}
+
+.bgc-button.is-disabled {
+    opacity: .5;
+    pointer-events: none;
+}
+
+.bgc-button:hover {
+    background-color: #954b18;
+    transition: all 0.35s;
+}
+
+.bgc-image {
+    width: 100%;
+    height: auto;
+}
+
+.bgc-item-quantity {
+    width: 4rem;
+    height: 2.75rem;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    padding: 0.175rem 0.5rem;
+}
+
+.bgc-item-price {
+    font-size: 28px;
+    font-weight: 600;
+    color: grey;
+}
+
+.bgc-item-price::before {
+    content: '$';
+}

@@ -1,0 +1,44 @@
+﻿ul {
+    list-style-type: none;
+}
+
+ul li {
+    margin-bottom: 25px;
+}
+
+select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.bgc-select-size {
+    width: 10em;
+}
+
+.bgc-sidebar-container {
+    padding: 10px;
+}
+
+.bgc-sidebar-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.bgc-sidebar-option {
+    margin-bottom: 5px;
+}
+
+.bgc-sidebar-label {
+    margin-left: 10px;
+}
+
+.bgc-apply-button {
+    background-color: #228b22;
+    border: 0;
+    color: #FFFFFF;
+    height: 3rem;
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+    width: 80%;
+}

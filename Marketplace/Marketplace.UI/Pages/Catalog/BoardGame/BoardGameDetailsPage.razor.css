@@ -1,0 +1,44 @@
+﻿.bgc-item-container {
+    margin-top: 20px;
+}
+
+.bgc-item-image img {
+    width: 400px;
+    height: 400px;
+}
+
+.bgc-item-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.bgc-item-brand {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.bgc-item-categories, .bgc-item-mechanics {
+    margin-top: 10px;
+    display: flex;
+}
+
+.bgc-item-categories-label, .bgc-item-mechanics-label {
+    font-weight: 600;
+}
+
+.bgc-item-category, .bgc-item-mechanic {
+    margin-bottom: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    background-color: #f47721;
+    color: #fff;
+}
+
+.bgc-item-quantity-label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 10px;
+}

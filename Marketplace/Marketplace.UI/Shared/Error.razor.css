@@ -1,0 +1,13 @@
+﻿.bgc-error-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.bgc-close-error-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+}

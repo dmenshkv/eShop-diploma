@@ -1,0 +1,44 @@
+﻿@using Marketplace.UI.Components.Filters
+@using Marketplace.UI.Components.Item
+@using Marketplace.UI.Components.Pagination
+@using Marketplace.UI.Pages.BasePages
+
+@inherits PageComponentBase;
+
+@attribute [Route(HomePageRoute)]
+
+<figure>
+    <img class="bgc-image" src="images/main_banner.png" />
+</figure>
+
+@if (IsLoading)
+{
+    @:Loading board games..
+}
+else if (Items is null)
+{
+    <div class="error-message">
+        An error occurred while loading board games
+    </div>
+}
+else
+{
+    <div class="bgc-flex-container">
+        <div class="col-2 mx-4 my-4 bgc-sidebar-container">
+            <SidebarFilter FilteringOptions="@_filteringOptions" OnFiltersChangedAsync="OnFiltersChangedAsync" />
+        </div>
+        <div class="col-10 mx-4 my-4 bgc-column-container">
+            <div class="bgc-flex-column">
+                @foreach (var boardGame in Items)
+                {
+                    <div class="bgc-catalog-item">
+                        <Item BoardGame="boardGame"></Item>
+                    </div>
+                }
+            </div>
+            <div class="bgc-flex-column">
+                <Paginator Pagination="_pagination" OnCurrentPageChangedAsync="OnCurrentPageChangedAsync" />
+            </div>
+        </div>
+    </div>
+}

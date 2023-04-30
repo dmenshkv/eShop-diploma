@@ -1,0 +1,73 @@
+﻿@using Marketplace.UI.Pages.BasePages
+
+@inherits PageComponentBase;
+
+@attribute [Route(BoardGameRoute)]
+
+@if (IsLoading)
+{
+    @:Loading board game..
+}
+else if (_boardGame is null)
+{
+    <div class="error-message">
+        An error occurred while loading board game
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row bgc-item-container">
+            <div class="bgc-item-image col-4">
+                <img src="@_boardGame.PictureUrl" />
+            </div>
+            <div class="col-6">
+                <h1 class="bgc-item-title">
+                    @_boardGame.Name
+                </h1>
+                <div class="bgc-item-price">
+                    @_boardGame.Price.ToString("N2")
+                </div>
+                <div class="bgc-item-container">
+                    <div class="bgc-item-brand">
+                        @_boardGame.Brand.Name
+                    </div>
+                    <div class="bgc-item-categories">
+                        <span class="bgc-item-categories-label">Categories: </span>
+                        @foreach (var category in @_boardGame.Categories)
+                        {
+                            <span class="mx-2 bgc-item-category">
+                                @category.Name
+                            </span>
+                        }
+                    </div>
+                    <div class="bgc-item-mechanics">
+                        <span class="bgc-item-mechanics-label">Mechanics: </span>
+                        @foreach (var mechanic in @_boardGame.Mechanics)
+                        {
+                            <span class="mx-2 bgc-item-mechanic">
+                                @mechanic.Name
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div class="bgc-item-container">
+                    <p>
+                        @_boardGame.Description
+                    </p>
+                </div>
+                <div class="bgc-item-container">
+                    <div>
+                        <span class="bgc-item-quantity-label">Quantity</span>
+                        <input @bind="_quantity" min="1" max="@_boardGame.AvailableStock" type="number" aria-label="Quantity" class="bgc-item-quantity">
+                    </div>
+                    <div>
+                        <button type="submit" class="bgc-button" @onclick="AddToBasket">
+                            ADD TO CART
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,27 @@
+﻿<div class="bgc-pagination-container">
+    <ul>
+        <li>
+            @if (Pagination.CurrentPage > 1)
+            {
+                <a href="#" aria-label="Previous" @onclick="(() => OnPageChangedAsync(Pagination.CurrentPage - 1))">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>   
+            }
+        </li>
+        @for (var i = 1; i <= _totalPages; i++)
+        {
+            var pageNumber = i;
+            <li class="@(i == Pagination.CurrentPage ? "active" : "")">
+                <a href="#" @onclick="() => OnPageChangedAsync(pageNumber)">@i</a>
+            </li>
+        }
+        <li>
+            @if (Pagination.CurrentPage < _totalPages)
+            {
+                <a href="#" aria-label="Next" @onclick="(() => OnPageChangedAsync(Pagination.CurrentPage + 1))">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            }
+        </li>
+    </ul>
+</div>

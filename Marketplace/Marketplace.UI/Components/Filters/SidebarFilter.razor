@@ -1,0 +1,46 @@
+﻿<div class="bgc-sidebar-container">
+    <ul>
+        <li>
+            <h6 class="bgc-sidebar-title">Sort by:</h6>
+            <select class="bgc-select-size" @bind="_sortCategory">
+                @foreach (var sortingCategory in FilteringOptions.SortingCategories)
+                {
+                    <option value="@sortingCategory">@sortingCategory</option>
+                }
+            </select>
+        </li>
+        <li>
+            <h6 class="bgc-sidebar-title">Brand:</h6>
+            @foreach (var brand in FilteringOptions.Brands)
+            {
+                <div class="bgc-sidebar-option">
+                    <input type="checkbox" id="@brand" @bind="@_brandsFilter[brand]" />
+                    <label class="bgc-sidebar-label" for="@brand">@brand</label>
+                </div>
+            }
+        </li>
+        <li>
+            <h6 class="bgc-sidebar-title">Category:</h6>
+            @foreach (var category in FilteringOptions.Categories)
+            {
+                <div class="bgc-sidebar-option">
+                    <input type="checkbox" id="@category" @bind="@_categoryFilters[category]" />
+                    <label class="bgc-sidebar-label" for="@category">@category</label>
+                </div>
+            }
+        </li>
+        <li>
+            <h6 class="bgc-sidebar-title">Mechanic:</h6>
+            @foreach (var mechanic in FilteringOptions.Mechanics)
+            {
+                <div class="bgc-sidebar-option">
+                    <input type="checkbox" id="@mechanic" @bind="@_mechanicFilters[mechanic]" />
+                    <label class="bgc-sidebar-label" for="@mechanic">@mechanic</label>
+                </div>
+            }
+        </li>
+    </ul>
+    <button type="button" class="bgc-apply-button" @onclick="OnFiltersSelectedChangedAsync">
+        Apply
+    </button>
+</div>
