@@ -1,5 +1,6 @@
 ﻿using Marketplace.Models.Configurations;
 using Marketplace.Models.ViewModels.Basket;
+using Marketplace.UI.Components.Item;
 using Marketplace.UI.Core.Services.Interfaces;
 using Marketplace.UI.Pages.BasePages;
 using Microsoft.AspNetCore.Components;
@@ -56,6 +57,11 @@ namespace Marketplace.UI.Pages.Catalog.Basket
             {
                 Error?.ProcessError();
             }
+        }
+
+        private decimal CalculateTotalSingleItemPrice(decimal price, int quantity)
+        {
+            return Math.Round(price * quantity, 2);
         }
     }
 }

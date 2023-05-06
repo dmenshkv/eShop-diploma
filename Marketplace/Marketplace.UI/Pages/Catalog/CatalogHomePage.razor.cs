@@ -33,6 +33,7 @@ namespace Marketplace.UI.Pages.Catalog
         private const string HomePageRoute = "/";
 
         protected bool IsNextPageLoading { get; set; }
+        protected bool IsThereItems { get; set; } = true;
 
         private PaginationModel _pagination = null!;
 
@@ -117,6 +118,8 @@ namespace Marketplace.UI.Pages.Catalog
 
             var items = await BoardGameService.GetAllBoardGamesAsync(_queryParameters);
 
+            IsThereItems = items.Count != 0 ? true : false;
+
             Items = items.BoardGames;
             _pagination = new PaginationModel()
             {
@@ -124,6 +127,8 @@ namespace Marketplace.UI.Pages.Catalog
                 PageSize = _pageSize,
                 TotalItemsCount = items.Count
             };
+
+            StateHasChanged();
         }
 
         private void ChangePage()

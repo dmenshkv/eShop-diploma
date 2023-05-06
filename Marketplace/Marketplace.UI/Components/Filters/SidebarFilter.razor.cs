@@ -53,12 +53,11 @@ namespace Marketplace.UI.Components.Filters
             var categoriesFiltersApplied = categories.Count > 0;
             var mechanicsFiltersApplied = mechanics.Count > 0;
 
+            _queryParameters.Filters = new Dictionary<FilterCollectionModel, List<string>>();
             _queryParameters.OrderBy = _sortCategory ?? FilteringOptions.SortingCategories.First();
 
             if (brandsFiltersApplied || categoriesFiltersApplied || mechanicsFiltersApplied)
             {
-                _queryParameters.Filters = new Dictionary<FilterCollectionModel, List<string>>();
-
                 if (brandsFiltersApplied)
                 {
                     AddFilterToQuery(

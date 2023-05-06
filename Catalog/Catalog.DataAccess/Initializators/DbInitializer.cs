@@ -52,7 +52,7 @@ namespace Catalog.DataAccess.Initializators
                 },
                 new Brand()
                 {
-                    Name = "Cakebread & Walton",
+                    Name = "Cakebread and Walton",
                     Country = "United Kingdom"
                 },
                 new Brand()
@@ -139,7 +139,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "10-minute-heist.png",
                     Slug = "10-minute-heist-the-wizard's-tower",
                     AvailableStock = 10,
-                    BrandId = brands[0].Id,
+                    BrandId = brands.Find(f => f.Name == "Cosmic Wimpout")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Strategy")!,
@@ -159,7 +159,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "13-days.png",
                     Slug = "13-days-the-cuban-missile-crisis",
                     AvailableStock = 10,
-                    BrandId = brands[0].Id,
+                    BrandId = brands.Find(f => f.Name == "Cosmic Wimpout")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Strategy")!,
@@ -179,7 +179,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "2-de-mayo.png",
                     Slug = "2-de-mayo",
                     AvailableStock = 10,
-                    BrandId = brands[0].Id,
+                    BrandId = brands.Find(f => f.Name == "Cakebread and Walton")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Strategy")!,
@@ -199,7 +199,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "4-gods.png",
                     Slug = "4-gods",
                     AvailableStock = 10,
-                    BrandId = brands[1].Id,
+                    BrandId = brands.Find(f => f.Name == "Cakebread and Walton")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Strategy")!
@@ -218,7 +218,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "alone.png",
                     Slug = "alone",
                     AvailableStock = 10,
-                    BrandId = brands[1].Id,
+                    BrandId = brands.Find(f => f.Name == "Bethesda Softworks")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Thematic")!
@@ -237,7 +237,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "5-minute-marvel.png",
                     Slug = "5-minute-marvel",
                     AvailableStock = 10,
-                    BrandId = brands[1].Id,
+                    BrandId = brands.Find(f => f.Name == "Bethesda Softworks")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Thematic")!,
@@ -257,7 +257,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "arkham-horror.png",
                     Slug = "arkham-horror",
                     AvailableStock = 10,
-                    BrandId = brands[2].Id,
+                    BrandId = brands.Find(f => f.Name == "Decipher, Inc.")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Strategy")!,
@@ -278,7 +278,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "alea-iacta-est.png",
                     Slug = "alea-iacta-est",
                     AvailableStock = 10,
-                    BrandId = brands[2].Id,
+                    BrandId = brands.Find(f => f.Name == "Decipher, Inc.")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Party Game")!
@@ -297,7 +297,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "epic-spell-wars.png",
                     Slug = "epic-spell-wars-of-the-battle-wizards",
                     AvailableStock = 10,
-                    BrandId = brands[2].Id,
+                    BrandId = brands.Find(f => f.Name == "Decipher, Inc.")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Strategy")!,
@@ -318,7 +318,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "codenames.png",
                     Slug = "codenames",
                     AvailableStock = 10,
-                    BrandId = brands[3].Id,
+                    BrandId = brands.Find(f => f.Name == "The Game Crafter")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Party Game")!
@@ -337,7 +337,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "shadows-in-the-forest.png",
                     Slug = "shadows-in-the-forest",
                     AvailableStock = 10,
-                    BrandId = brands[4].Id,
+                    BrandId = brands.Find(f => f.Name == "The Game Crafter")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Childrens Game")!
@@ -355,7 +355,7 @@ namespace Catalog.DataAccess.Initializators
                     PictureFileName = "outfoxed.png",
                     Slug = "outfoxed",
                     AvailableStock = 10,
-                    BrandId = brands[4].Id,
+                    BrandId = brands.Find(f => f.Name == "The Game Crafter")!.Id,
                     Categories = new List<Category>()
                     {
                         categories.Find(f => f.Name == "Childrens Game")!

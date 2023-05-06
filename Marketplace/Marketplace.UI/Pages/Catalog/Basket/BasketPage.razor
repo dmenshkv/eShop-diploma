@@ -45,7 +45,9 @@
                         <input @bind="@item.Quantity" min="1" type="number" aria-label="Quantity" class="bgc-item-quantity">
                     </div>
                     <div class="col-2">
-                        Total price
+                        <div class="bgc-basket-price">
+                            @CalculateTotalSingleItemPrice(item.Price, item.Quantity)
+                        </div>
                     </div>
                     <div>
                         <img src="images/remove.png" @onclick="@(() => HandleItemRemoveAsync(item.Id))" class="bgc-basket-remove" />
@@ -63,7 +65,7 @@
                             @CustomerBasket.Items?.Count()
                         </div>
                     </div>
-                    <div class="bgc-basket-checkout-items-price">@CustomerBasket.Total()</div>
+                    <div class="bgc-basket-checkout-items-price">@CustomerBasket.CalculateTotal()</div>
                 </div>
                 <button class="bgc-button">
                     Checkout

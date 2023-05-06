@@ -1,19 +1,26 @@
 ﻿using System.Text;
 using Infrastructure.Services.Interfaces;
+using Marketplace.Models.Configurations;
 using Marketplace.UI.Core.Exceptions;
 using Marketplace.UI.Core.Services.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace Marketplace.UI.Core.Services
 {
     public class HttpClientService : IHttpClientService
     {
         private readonly IJsonSerializer _jsonSerializer;
+        private readonly IOptions<AppSettings> _appSettings;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public HttpClientService(IHttpClientFactory httpClientFactory, IJsonSerializer jsonSerializer)
+        public HttpClientService(
+            IHttpClientFactory httpClientFactory,
+            IOptions<AppSettings> appSettings,
+            IJsonSerializer jsonSerializer)
         {
-            _httpClientFactory = httpClientFactory;
+            _appSettings = appSettings;
             _jsonSerializer = jsonSerializer;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<TResponse> PostAsync<TResponse, TRequest>(string uri, TRequest body) =>
@@ -31,6 +38,7 @@ namespace Marketplace.UI.Core.Services
         private async Task<TResponse> SendAsync<TResponse, TRequest>(string uri, HttpMethod method, TRequest? content)
         {
             var client = _httpClientFactory.CreateClient();
+            client.Timeout = TimeSpan.FromMinutes(_appSettings.Value.RequestTimeoutInMinutes);
 
             var request = new HttpRequestMessage
             {

@@ -12,5 +12,7 @@ namespace Marketplace.Models.Configurations
         public PaginationSettings Pagination { get; set; } = null!;
 
         public Guid UserId { get; set; }
+
+        public int RequestTimeoutInMinutes { get; set; }
     }
 }

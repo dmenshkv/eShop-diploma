@@ -27,7 +27,6 @@ namespace Catalog.API.Extensions
                 .Filter()
                 .OrderBy()
                 .Count()
-                .Expand()
                 .AddRouteComponents("board-games", GetEdmModel());
         }
 

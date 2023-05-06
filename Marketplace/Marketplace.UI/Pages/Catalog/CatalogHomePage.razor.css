@@ -23,3 +23,10 @@
 .bgc-flex-column {
     flex: 1;
 }
+
+.bgc-items-no-results {
+    color: #214E4B;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+}

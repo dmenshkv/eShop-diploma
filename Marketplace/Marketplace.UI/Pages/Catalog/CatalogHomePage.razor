@@ -27,18 +27,29 @@ else
         <div class="col-2 mx-4 my-4 bgc-sidebar-container">
             <SidebarFilter FilteringOptions="@_filteringOptions" OnFiltersChangedAsync="OnFiltersChangedAsync" />
         </div>
-        <div class="col-10 mx-4 my-4 bgc-column-container">
-            <div class="bgc-flex-column">
-                @foreach (var boardGame in Items)
-                {
-                    <div class="bgc-catalog-item">
-                        <Item BoardGame="boardGame"></Item>
-                    </div>
-                }
+        @if(IsThereItems)
+        {
+            <div class="col-10 mx-4 my-4 bgc-column-container">
+                <div class="bgc-flex-column">
+                    @foreach (var boardGame in Items)
+                    {
+                        <div class="bgc-catalog-item">
+                            <Item BoardGame="boardGame"></Item>
+                        </div>
+                    }
+                </div>
+                <div class="bgc-flex-column">
+                    <Paginator Pagination="_pagination" OnCurrentPageChangedAsync="OnCurrentPageChangedAsync" />
+                </div>
             </div>
-            <div class="bgc-flex-column">
-                <Paginator Pagination="_pagination" OnCurrentPageChangedAsync="OnCurrentPageChangedAsync" />
+        }
+        else
+        {
+            <div class="my-4 bgc-items-no-results">
+                <p>
+                    No products found matching the filters
+                </p>
             </div>
-        </div>
+        }
     </div>
 }
