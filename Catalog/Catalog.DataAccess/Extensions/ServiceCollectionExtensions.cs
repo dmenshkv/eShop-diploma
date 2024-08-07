@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddApplicationDbContext(this IServiceCollection serviceCollection, string connectionString)
     {
-        serviceCollection.AddDbContextFactory<ApplicationDbContext>(opts => opts.UseNpgsql(connectionString));
+        serviceCollection.AddDbContextFactory<ApplicationDbContext>(opts => opts.UseSqlServer(connectionString));
     }
 
     public static void AddDbRepositories(this IServiceCollection serviceCollection)
