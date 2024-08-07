@@ -1,44 +1,36 @@
-﻿using Marketplace.Models.Configurations;
-using Marketplace.Models.Requests;
-using Marketplace.Models.Responses;
-using Marketplace.Models.ViewModels;
-using Marketplace.UI.Core.Services.Interfaces;
-using Microsoft.Extensions.Options;
+﻿namespace Marketplace.UI.Core.Services;
 
-namespace Marketplace.UI.Core.Services
+public class CategoryService : BaseService<CategoryViewModel>, ICategoryService
 {
-    public class CategoryService : BaseService<CategoryViewModel>, ICategoryService
+    private readonly string _baseApiPath;
+
+    private readonly IOptions<AppSettings> _appSettings;
+
+    public CategoryService(IHttpClientService httpClientService, IOptions<AppSettings> appSettings)
+        : base(httpClientService)
     {
-        private readonly string _baseApiPath;
+        _appSettings = appSettings;
 
-        private readonly IOptions<AppSettings> _appSettings;
+        _baseApiPath = $"{_appSettings.Value.CatalogUrl}/categories";
+    }
 
-        public CategoryService(IHttpClientService httpClientService, IOptions<AppSettings> appSettings)
-            : base(httpClientService)
-        {
-            _appSettings = appSettings;
+    public async Task<AddItemResponse> AddCategoryAsync(AddItemRequest<CategoryViewModel> addItemRequest)
+    {
+        return await AddAsync(_baseApiPath, addItemRequest);
+    }
 
-            _baseApiPath = $"{_appSettings.Value.CatalogUrl}/categories";
-        }
+    public async Task<GetAllItemsResponse<CategoryViewModel>> GetAllCategoriesAsync()
+    {
+        return await GetAllAsync(_baseApiPath);
+    }
 
-        public async Task<AddItemResponse> AddCategoryAsync(AddItemRequest<CategoryViewModel> addItemRequest)
-        {
-            return await AddAsync(_baseApiPath, addItemRequest);
-        }
+    public async Task<RemoveItemResponse> RemoveCategoryAsync(Guid id)
+    {
+        return await RemoveAsync($"{_baseApiPath}/{id}");
+    }
 
-        public async Task<GetAllItemsResponse<CategoryViewModel>> GetAllCategoriesAsync()
-        {
-            return await GetAllAsync(_baseApiPath);
-        }
-
-        public async Task<RemoveItemResponse> RemoveCategoryAsync(Guid id)
-        {
-            return await RemoveAsync($"{_baseApiPath}/{id}");
-        }
-
-        public async Task<UpdateItemResponse> UpdateCategoryAsync(Guid id, UpdateItemRequest<CategoryViewModel> updateItemRequest)
-        {
-            return await UpdateAsync($"{_baseApiPath}/{id}", updateItemRequest);
-        }
+    public async Task<UpdateItemResponse> UpdateCategoryAsync(Guid id, UpdateItemRequest<CategoryViewModel> updateItemRequest)
+    {
+        return await UpdateAsync($"{_baseApiPath}/{id}", updateItemRequest);
     }
 }

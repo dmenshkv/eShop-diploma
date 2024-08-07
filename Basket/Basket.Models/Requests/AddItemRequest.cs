@@ -1,13 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Basket.Models.DTOs;
 
-namespace Basket.Models.Requests
-{
-    [ExcludeFromCodeCoverage]
-    public class AddItemRequest
-    {
-        public Guid Id { get; set; }
+namespace Basket.Models.Requests;
 
-        public BasketItemDto Item { get; set; } = null!;
-    }
+[ExcludeFromCodeCoverage]
+public class AddItemRequest
+{
+    public Guid Id { get; set; }
+
+    public BasketItemDto Item { get; set; } = null!;
 }

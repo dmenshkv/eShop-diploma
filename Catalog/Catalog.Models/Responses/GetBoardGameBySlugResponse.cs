@@ -1,11 +1,10 @@
 ﻿using Catalog.Models.DTOs;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Catalog.Models.Responses
+namespace Catalog.Models.Responses;
+
+[ExcludeFromCodeCoverage]
+public class GetBoardGameBySlugResponse
 {
-    [ExcludeFromCodeCoverage]
-    public class GetBoardGameBySlugResponse
-    {
-        public BoardGameDto BoardGame { get; init; } = null!;
-    }
+    public BoardGameDto BoardGame { get; init; } = null!;
 }

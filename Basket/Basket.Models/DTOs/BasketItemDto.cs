@@ -1,18 +1,17 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Basket.Models.DTOs
+namespace Basket.Models.DTOs;
+
+[ExcludeFromCodeCoverage]
+public class BasketItemDto
 {
-    [ExcludeFromCodeCoverage]
-    public class BasketItemDto
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public string Name { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
-        public decimal Price { get; set; }
+    public decimal Price { get; set; }
 
-        public string PictureUrl { get; set; } = null!;
+    public string PictureUrl { get; set; } = null!;
 
-        public int Quantity { get; set; }
-    }
+    public int Quantity { get; set; }
 }

@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.Responses.Basket
+namespace Marketplace.Models.Responses.Basket;
+
+[ExcludeFromCodeCoverage]
+public class AddToBasketResponse
 {
-    [ExcludeFromCodeCoverage]
-    public class AddToBasketResponse
-    {
-        public bool IsAdded { get; set; }
-    }
+    public bool IsAdded { get; set; }
 }

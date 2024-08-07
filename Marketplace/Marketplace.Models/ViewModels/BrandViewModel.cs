@@ -1,14 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.ViewModels
+namespace Marketplace.Models.ViewModels;
+
+[ExcludeFromCodeCoverage]
+public class BrandViewModel
 {
-    [ExcludeFromCodeCoverage]
-    public class BrandViewModel
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public string Name { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
-        public string Country { get; set; } = null!;
-    }
+    public string Country { get; set; } = null!;
 }

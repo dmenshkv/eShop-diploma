@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Catalog.API.Constants;
-using Catalog.Core.Extensions;
+﻿using Catalog.Core.Extensions;
 using Catalog.Models.Configurations;
 using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;

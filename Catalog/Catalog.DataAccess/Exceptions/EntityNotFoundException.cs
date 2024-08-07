@@ -1,10 +1,9 @@
-﻿namespace Catalog.DataAccess.Exceptions
+﻿namespace Catalog.DataAccess.Exceptions;
+
+public class EntityNotFoundException : Exception
 {
-    public class EntityNotFoundException : Exception
+    public EntityNotFoundException(string message)
+        : base(message)
     {
-        public EntityNotFoundException(string message)
-            : base(message)
-        {
-        }
     }
 }

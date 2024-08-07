@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Catalog.Models.Responses
+namespace Catalog.Models.Responses;
+
+[ExcludeFromCodeCoverage]
+public class AddItemResponse
 {
-    [ExcludeFromCodeCoverage]
-    public class AddItemResponse
-    {
-        public Guid Id { get; set; }
-    }
+    public Guid Id { get; set; }
 }

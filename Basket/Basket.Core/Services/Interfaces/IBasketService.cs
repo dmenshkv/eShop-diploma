@@ -1,17 +1,15 @@
-﻿using Basket.Models.DTOs;
-using Basket.Models.Requests;
+﻿using Basket.Models.Requests;
 using Basket.Models.Responses;
 
-namespace Basket.Core.Services.Interfaces
+namespace Basket.Core.Services.Interfaces;
+
+public interface IBasketService
 {
-    public interface IBasketService
-    {
-        Task<CustomerBasketDto> GetBasketAsync(Guid id);
+    Task<CustomerBasketDto> GetBasketAsync(Guid id);
 
-        Task<AddItemResponse> AddToBasketAsync(AddItemRequest addItemRequest);
+    Task<AddItemResponse> AddToBasketAsync(AddItemRequest addItemRequest);
 
-        Task<RemoveItemResponse> RemoveFromBasketAsync(Guid id, Guid itemId);
+    Task<RemoveItemResponse> RemoveFromBasketAsync(Guid id, Guid itemId);
 
-        Task<UpdateQuantityResponse> UpdateQuantityAsync(UpdateQuantityRequest updateQuantityRequest);
-    }
+    Task<UpdateQuantityResponse> UpdateQuantityAsync(UpdateQuantityRequest updateQuantityRequest);
 }

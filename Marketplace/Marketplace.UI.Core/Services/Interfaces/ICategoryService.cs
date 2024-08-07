@@ -1,17 +1,12 @@
-﻿using Marketplace.Models.Requests;
-using Marketplace.Models.Responses;
-using Marketplace.Models.ViewModels;
+﻿namespace Marketplace.UI.Core.Services.Interfaces;
 
-namespace Marketplace.UI.Core.Services.Interfaces
+public interface ICategoryService
 {
-    public interface ICategoryService
-    {
-        Task<AddItemResponse> AddCategoryAsync(AddItemRequest<CategoryViewModel> addItemRequest);
+    Task<AddItemResponse> AddCategoryAsync(AddItemRequest<CategoryViewModel> addItemRequest);
 
-        Task<UpdateItemResponse> UpdateCategoryAsync(Guid id, UpdateItemRequest<CategoryViewModel> updateItemRequest);
+    Task<UpdateItemResponse> UpdateCategoryAsync(Guid id, UpdateItemRequest<CategoryViewModel> updateItemRequest);
 
-        Task<RemoveItemResponse> RemoveCategoryAsync(Guid id);
+    Task<RemoveItemResponse> RemoveCategoryAsync(Guid id);
 
-        Task<GetAllItemsResponse<CategoryViewModel>> GetAllCategoriesAsync();
-    }
+    Task<GetAllItemsResponse<CategoryViewModel>> GetAllCategoriesAsync();
 }

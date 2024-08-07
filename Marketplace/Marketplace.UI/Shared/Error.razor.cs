@@ -1,26 +1,23 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿namespace Marketplace.UI.Shared;
 
-namespace Marketplace.UI.Shared
+public partial class Error
 {
-    public partial class Error
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected bool IsErrorActive { get; set; }
+
+    protected string? Message { get; set; }
+
+    public virtual void ProcessError()
     {
-        [Parameter]
-        public RenderFragment? ChildContent { get; set; }
+        Message = $"Oops, something went wrong";
+        IsErrorActive = true;
+        StateHasChanged();
+    }
 
-        protected bool IsErrorActive { get; set; }
-
-        protected string? Message { get; set; }
-
-        public virtual void ProcessError()
-        {
-            Message = $"Oops, something went wrong";
-            IsErrorActive = true;
-            StateHasChanged();
-        }
-
-        protected void HideError()
-        {
-            IsErrorActive = false;
-        }
+    protected void HideError()
+    {
+        IsErrorActive = false;
     }
 }

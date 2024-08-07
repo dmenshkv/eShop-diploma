@@ -1,14 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Catalog.Models.DTOs
+namespace Catalog.Models.DTOs;
+
+[ExcludeFromCodeCoverage]
+public class BrandDto
 {
-    [ExcludeFromCodeCoverage]
-    public class BrandDto
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public string Name { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
-        public string Country { get; set; } = null!;
-    }
+    public string Country { get; set; } = null!;
 }

@@ -1,32 +1,30 @@
 ﻿using Marketplace.UI.Shared;
-using Microsoft.AspNetCore.Components;
 
-namespace Marketplace.UI.Pages.BasePages
+namespace Marketplace.UI.Pages.BasePages;
+
+public abstract class PageComponentBase : ComponentBase
 {
-    public abstract class PageComponentBase : ComponentBase
+    [CascadingParameter]
+    protected Error? Error { get; set; }
+
+    protected bool IsLoading { get; set; }
+
+    protected abstract Task InitializePageAsync();
+
+    protected async Task ExecuteSafelyAsync(Func<Task> function)
     {
-        [CascadingParameter]
-        protected Error? Error { get; set; }
-
-        protected bool IsLoading { get; set; }
-
-        protected abstract Task InitializePageAsync();
-
-        protected async Task ExecuteSafelyAsync(Func<Task> function)
+        try
         {
-            try
-            {
-                IsLoading = true;
-                await function();
-            }
-            catch (NullReferenceException)
-            {
-                Error?.ProcessError();
-            }
-            finally
-            {
-                IsLoading = false;
-            }
+            IsLoading = true;
+            await function();
+        }
+        catch (NullReferenceException)
+        {
+            Error?.ProcessError();
+        }
+        finally
+        {
+            IsLoading = false;
         }
     }
 }

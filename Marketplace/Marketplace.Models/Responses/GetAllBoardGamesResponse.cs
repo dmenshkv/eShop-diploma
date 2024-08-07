@@ -2,15 +2,14 @@
 using Marketplace.Models.ViewModels;
 using Newtonsoft.Json;
 
-namespace Marketplace.Models.Responses
-{
-    [ExcludeFromCodeCoverage]
-    public class GetAllBoardGamesResponse
-    {
-        [JsonProperty("@odata.count")]
-        public int Count { get; set; }
+namespace Marketplace.Models.Responses;
 
-        [JsonProperty("value")]
-        public IEnumerable<BoardGameViewModel> BoardGames { get; set; } = null!;
-    }
+[ExcludeFromCodeCoverage]
+public class GetAllBoardGamesResponse
+{
+    [JsonProperty("@odata.count")]
+    public int Count { get; set; }
+
+    [JsonProperty("value")]
+    public IEnumerable<BoardGameViewModel> BoardGames { get; set; } = null!;
 }

@@ -1,69 +1,61 @@
-﻿using System.Net;
-using Catalog.Core.Services.Interfaces;
-using Catalog.Models.DTOs;
-using Catalog.Models.Requests;
-using Catalog.Models.Responses;
-using Microsoft.AspNetCore.Mvc;
+﻿namespace Catalog.API.Controllers;
 
-namespace Catalog.API.Controllers
+[ApiController]
+[Route("mechanics")]
+public class MechanicController : Controller
 {
-    [ApiController]
-    [Route("mechanics")]
-    public class MechanicController : Controller
+    private readonly IMechanicService _mechanicService;
+
+    public MechanicController(IMechanicService mechanicService)
     {
-        private readonly IMechanicService _mechanicService;
+        _mechanicService = mechanicService;
+    }
 
-        public MechanicController(IMechanicService mechanicService)
+    [HttpPost]
+    [ProducesResponseType(typeof(AddItemResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> AddAsync([FromBody] AddItemRequest<MechanicDto> addItemRequest)
+    {
+        var response = await _mechanicService.AddMechanicAsync(addItemRequest);
+
+        return Ok(response);
+    }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(UpdateItemResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdateItemRequest<MechanicDto> updateItemRequest)
+    {
+        if (id != updateItemRequest.Item.Id)
         {
-            _mechanicService = mechanicService;
+            return BadRequest("Id in the route must match the id in the request body.");
         }
 
-        [HttpPost]
-        [ProducesResponseType(typeof(AddItemResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AddAsync([FromBody] AddItemRequest<MechanicDto> addItemRequest)
-        {
-            var response = await _mechanicService.AddMechanicAsync(addItemRequest);
+        var response = await _mechanicService.UpdateMechanicAsync(id, updateItemRequest);
 
-            return Ok(response);
-        }
+        return Ok(response);
+    }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(typeof(UpdateItemResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdateItemRequest<MechanicDto> updateItemRequest)
-        {
-            if (id != updateItemRequest.Item.Id)
-            {
-                return BadRequest("Id in the route must match the id in the request body.");
-            }
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(RemoveItemResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> RemoveAsync(Guid id)
+    {
+        var response = await _mechanicService.RemoveMechanicAsync(id);
 
-            var response = await _mechanicService.UpdateMechanicAsync(id, updateItemRequest);
+        return Ok(response);
+    }
 
-            return Ok(response);
-        }
+    [HttpGet]
+    [ProducesResponseType(typeof(GetAllItemsResponse<MechanicDto>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetAllAsync()
+    {
+        var response = await _mechanicService.GetAllMechanicsAsync();
 
-        [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(RemoveItemResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> RemoveAsync(Guid id)
-        {
-            var response = await _mechanicService.RemoveMechanicAsync(id);
-
-            return Ok(response);
-        }
-
-        [HttpGet]
-        [ProducesResponseType(typeof(GetAllItemsResponse<MechanicDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAllAsync()
-        {
-            var response = await _mechanicService.GetAllMechanicsAsync();
-
-            return Ok(response);
-        }
+        return Ok(response);
     }
 }

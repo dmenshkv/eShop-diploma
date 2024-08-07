@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Catalog.Models.Responses
+namespace Catalog.Models.Responses;
+
+[ExcludeFromCodeCoverage]
+public class UpdateItemResponse
 {
-    [ExcludeFromCodeCoverage]
-    public class UpdateItemResponse
-    {
-        public bool IsUpdated { get; set; }
-    }
+    public bool IsUpdated { get; set; }
 }

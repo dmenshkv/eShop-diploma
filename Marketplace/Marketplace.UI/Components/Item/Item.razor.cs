@@ -1,21 +1,19 @@
 ﻿using Marketplace.Models.ViewModels;
-using Microsoft.AspNetCore.Components;
 
-namespace Marketplace.UI.Components.Item
+namespace Marketplace.UI.Components.Item;
+
+public partial class Item
 {
-    public partial class Item
+    [Parameter]
+    public BoardGameViewModel BoardGame { get; set; } = null!;
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
+    private string _path => $"/board-games/{BoardGame.Slug}";
+
+    private void NavigateToItem()
     {
-        [Parameter]
-        public BoardGameViewModel BoardGame { get; set; } = null!;
-
-        [Inject]
-        private NavigationManager NavigationManager { get; set; } = default!;
-
-        private string _path => $"/board-games/{BoardGame.Slug}";
-
-        private void NavigateToItem()
-        {
-            NavigationManager.NavigateTo(_path);
-        }
+        NavigationManager.NavigateTo(_path);
     }
 }

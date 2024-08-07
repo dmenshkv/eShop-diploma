@@ -1,11 +1,10 @@
 ﻿using Basket.Models.DTOs;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Basket.Models.Responses
+namespace Basket.Models.Responses;
+
+[ExcludeFromCodeCoverage]
+public class GetBasketResponse
 {
-    [ExcludeFromCodeCoverage]
-    public class GetBasketResponse
-    {
-        public CustomerBasketDto CustomerBasket { get; set; } = null!;
-    }
+    public CustomerBasketDto CustomerBasket { get; set; } = null!;
 }

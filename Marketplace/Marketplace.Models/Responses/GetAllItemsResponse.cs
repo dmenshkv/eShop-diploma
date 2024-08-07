@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.Responses
+namespace Marketplace.Models.Responses;
+
+[ExcludeFromCodeCoverage]
+public class GetAllItemsResponse<TItem>
 {
-    [ExcludeFromCodeCoverage]
-    public class GetAllItemsResponse<TItem>
-    {
-        public IEnumerable<TItem> Value { get; set; } = null!;
-    }
+    public IEnumerable<TItem> Value { get; set; } = null!;
 }

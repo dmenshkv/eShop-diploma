@@ -1,18 +1,17 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.Configurations
+namespace Marketplace.Models.Configurations;
+
+[ExcludeFromCodeCoverage]
+public class AppSettings
 {
-    [ExcludeFromCodeCoverage]
-    public class AppSettings
-    {
-        public string CatalogUrl { get; set; } = null!;
+    public string CatalogUrl { get; set; } = null!;
 
-        public string BasketUrl { get; set; } = null!;
+    public string BasketUrl { get; set; } = null!;
 
-        public PaginationSettings Pagination { get; set; } = null!;
+    public PaginationSettings Pagination { get; set; } = null!;
 
-        public Guid UserId { get; set; }
+    public Guid UserId { get; set; }
 
-        public int RequestTimeoutInMinutes { get; set; }
-    }
+    public int RequestTimeoutInMinutes { get; set; }
 }

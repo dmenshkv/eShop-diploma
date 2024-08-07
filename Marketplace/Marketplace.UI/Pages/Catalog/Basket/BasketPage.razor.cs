@@ -1,67 +1,60 @@
-﻿using Marketplace.Models.Configurations;
-using Marketplace.Models.ViewModels.Basket;
-using Marketplace.UI.Components.Item;
-using Marketplace.UI.Core.Services.Interfaces;
-using Marketplace.UI.Pages.BasePages;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
+﻿using Marketplace.Models.ViewModels.Basket;
 
-namespace Marketplace.UI.Pages.Catalog.Basket
+namespace Marketplace.UI.Pages.Catalog.Basket;
+
+public partial class BasketPage : PageComponentBase
 {
-    public partial class BasketPage : PageComponentBase
+    [Parameter]
+    public CustomerBasketViewModel CustomerBasket { get; set; } = new CustomerBasketViewModel();
+
+    [Inject]
+    private IBasketService BasketService { get; set; } = default!;
+
+    [Inject]
+    private IOptions<AppSettings> AppSettings { get; set; } = default!;
+
+    private const string BasketRoute = "basket";
+
+    protected override async Task OnInitializedAsync()
     {
-        [Parameter]
-        public CustomerBasketViewModel CustomerBasket { get; set; } = new CustomerBasketViewModel();
+        await base.OnInitializedAsync();
 
-        [Inject]
-        private IBasketService BasketService { get; set; } = default!;
+        await InitializePageAsync();
+    }
 
-        [Inject]
-        private IOptions<AppSettings> AppSettings { get; set; } = default!;
-
-        private const string BasketRoute = "basket";
-
-        protected override async Task OnInitializedAsync()
+    protected override async Task InitializePageAsync()
+    {
+        await ExecuteSafelyAsync(async () =>
         {
-            await base.OnInitializedAsync();
+            var response = await BasketService.GetBasketAsync(AppSettings.Value.UserId);
 
-            await InitializePageAsync();
-        }
+            CustomerBasket.Items = response.Items;
+        });
+    }
 
-        protected override async Task InitializePageAsync()
+    private async Task HandleItemRemoveAsync(Guid itemId)
+    {
+        try
         {
-            await ExecuteSafelyAsync(async () =>
+            var response = await BasketService.RemoveFromBasket(AppSettings.Value.UserId, itemId);
+
+            if (response.IsRemoved)
             {
-                var response = await BasketService.GetBasketAsync(AppSettings.Value.UserId);
+                var updatedBasketResponse = await BasketService.GetBasketAsync(AppSettings.Value.UserId);
 
-                CustomerBasket.Items = response.Items;
-            });
-        }
+                CustomerBasket.Items = updatedBasketResponse.Items;
 
-        private async Task HandleItemRemoveAsync(Guid itemId)
-        {
-            try
-            {
-                var response = await BasketService.RemoveFromBasket(AppSettings.Value.UserId, itemId);
-
-                if (response.IsRemoved)
-                {
-                    var updatedBasketResponse = await BasketService.GetBasketAsync(AppSettings.Value.UserId);
-
-                    CustomerBasket.Items = updatedBasketResponse.Items;
-
-                    StateHasChanged();
-                }
-            }
-            catch (NullReferenceException)
-            {
-                Error?.ProcessError();
+                StateHasChanged();
             }
         }
-
-        private decimal CalculateTotalSingleItemPrice(decimal price, int quantity)
+        catch (NullReferenceException)
         {
-            return Math.Round(price * quantity, 2);
+            Error?.ProcessError();
         }
+    }
+
+    private decimal CalculateTotalSingleItemPrice(decimal price, int quantity)
+    {
+        return Math.Round(price * quantity, 2);
     }
 }

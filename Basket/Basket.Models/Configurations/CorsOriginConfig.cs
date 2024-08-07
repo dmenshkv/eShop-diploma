@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Basket.Models.Configurations
+namespace Basket.Models.Configurations;
+
+[ExcludeFromCodeCoverage]
+public class CorsOriginConfig
 {
-    [ExcludeFromCodeCoverage]
-    public class CorsOriginConfig
-    {
-        public IEnumerable<string> AllowedOrigins { get; set; } = null!;
-    }
+    public IEnumerable<string> AllowedOrigins { get; set; } = null!;
 }

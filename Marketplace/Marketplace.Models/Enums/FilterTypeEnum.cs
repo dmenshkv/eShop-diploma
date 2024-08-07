@@ -1,9 +1,8 @@
-﻿namespace Marketplace.Models.Enums
+﻿namespace Marketplace.Models.Enums;
+
+public enum FilterTypeEnum
 {
-    public enum FilterTypeEnum
-    {
-        Category,
-        Mechanic,
-        Brand
-    }
+    Category,
+    Mechanic,
+    Brand
 }

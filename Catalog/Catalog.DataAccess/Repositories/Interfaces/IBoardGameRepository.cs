@@ -1,11 +1,8 @@
-﻿using Catalog.Entites.Common;
+﻿namespace Catalog.DataAccess.Repositories.Interfaces;
 
-namespace Catalog.DataAccess.Repositories.Interfaces
+public interface IBoardGameRepository
 {
-    public interface IBoardGameRepository
-    {
-        Task<BoardGame> GetBoardGameBySlugAsync(string slug);
+    Task<BoardGame> GetBoardGameBySlugAsync(string slug);
 
-        Task<IEnumerable<BoardGame>> GetAllBoardGamesAsync();
-    }
+    Task<IEnumerable<BoardGame>> GetAllBoardGamesAsync();
 }

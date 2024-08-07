@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Basket.Models.Responses
+namespace Basket.Models.Responses;
+
+[ExcludeFromCodeCoverage]
+public class AddItemResponse
 {
-    [ExcludeFromCodeCoverage]
-    public class AddItemResponse
-    {
-        public bool IsAdded { get; set; }
-    }
+    public bool IsAdded { get; set; }
 }

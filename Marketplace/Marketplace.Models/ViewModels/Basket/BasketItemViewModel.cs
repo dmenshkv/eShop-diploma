@@ -1,15 +1,14 @@
-﻿namespace Marketplace.Models.ViewModels.Basket
+﻿namespace Marketplace.Models.ViewModels.Basket;
+
+public class BasketItemViewModel
 {
-    public class BasketItemViewModel
-    {
-        public Guid Id { get; set; }
+    public Guid Id { get; set; }
 
-        public string Name { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
-        public decimal Price { get; set; }
+    public decimal Price { get; set; }
 
-        public string PictureUrl { get; set; } = null!;
+    public string PictureUrl { get; set; } = null!;
 
-        public int Quantity { get; set; }
-    }
+    public int Quantity { get; set; }
 }

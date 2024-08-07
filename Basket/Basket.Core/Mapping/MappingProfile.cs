@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using Basket.Entites.Common;
-using Basket.Models.DTOs;
 
-namespace Basket.Core.Mapping
+namespace Basket.Core.Mapping;
+
+public class MappingProfile : Profile
 {
-    public class MappingProfile : Profile
+    public MappingProfile()
     {
-        public MappingProfile()
-        {
-            CreateMap<BasketItem, BasketItemDto>().ReverseMap();
-            CreateMap<CustomerBasket, CustomerBasketDto>();
-        }
+        CreateMap<BasketItem, BasketItemDto>().ReverseMap();
+        CreateMap<CustomerBasket, CustomerBasketDto>();
     }
 }

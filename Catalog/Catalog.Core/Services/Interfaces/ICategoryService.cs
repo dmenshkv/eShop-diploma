@@ -1,17 +1,12 @@
-﻿using Catalog.Models.DTOs;
-using Catalog.Models.Requests;
-using Catalog.Models.Responses;
+﻿namespace Catalog.Core.Services.Interfaces;
 
-namespace Catalog.Core.Services.Interfaces
+public interface ICategoryService
 {
-    public interface ICategoryService
-    {
-        Task<AddItemResponse> AddCategoryAsync(AddItemRequest<CategoryDto> addItemRequest);
+    Task<AddItemResponse> AddCategoryAsync(AddItemRequest<CategoryDto> addItemRequest);
 
-        Task<UpdateItemResponse> UpdateCategoryAsync(Guid id, UpdateItemRequest<CategoryDto> updateItemRequest);
+    Task<UpdateItemResponse> UpdateCategoryAsync(Guid id, UpdateItemRequest<CategoryDto> updateItemRequest);
 
-        Task<RemoveItemResponse> RemoveCategoryAsync(Guid id);
+    Task<RemoveItemResponse> RemoveCategoryAsync(Guid id);
 
-        Task<GetAllItemsResponse<CategoryDto>> GetAllCategoriesAsync();
-    }
+    Task<GetAllItemsResponse<CategoryDto>> GetAllCategoriesAsync();
 }

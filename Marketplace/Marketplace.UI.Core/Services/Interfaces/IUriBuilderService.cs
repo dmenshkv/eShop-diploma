@@ -1,11 +1,8 @@
-﻿using Marketplace.Models;
+﻿namespace Marketplace.UI.Core.Services.Interfaces;
 
-namespace Marketplace.UI.Core.Services.Interfaces
+public interface IUriBuilderService
 {
-    public interface IUriBuilderService
-    {
-        public string BuildGetBoardGamesUri(string uri, ODataQueryParameters queryFiltersViewModel);
+    public string BuildGetBoardGamesUri(string uri, ODataQueryParameters queryFiltersViewModel);
 
-        public string AddDefaultBoardGamesQueryParameters(string uri);
-    }
+    public string AddDefaultBoardGamesQueryParameters(string uri);
 }

@@ -1,11 +1,10 @@
 ﻿using Marketplace.Models.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.Responses
+namespace Marketplace.Models.Responses;
+
+[ExcludeFromCodeCoverage]
+public class GetBoardGameBySlugResponse
 {
-    [ExcludeFromCodeCoverage]
-    public class GetBoardGameBySlugResponse
-    {
-        public BoardGameViewModel BoardGame { get; set; } = null!;
-    }
+    public BoardGameViewModel BoardGame { get; set; } = null!;
 }

@@ -1,16 +1,13 @@
-﻿using Catalog.Entites.Common;
+﻿namespace Catalog.DataAccess.Repositories.Interfaces;
 
-namespace Catalog.DataAccess.Repositories.Interfaces
+public interface IBaseRepository<TEntity>
+    where TEntity : BaseEntity
 {
-    public interface IBaseRepository<TEntity>
-        where TEntity : BaseEntity
-    {
-        Task<Guid> AddAsync(TEntity item);
+    Task<Guid> AddAsync(TEntity item);
 
-        Task<bool> UpdateAsync(Guid id, TEntity item);
+    Task<bool> UpdateAsync(Guid id, TEntity item);
 
-        Task<bool> RemoveAsync(Guid id);
+    Task<bool> RemoveAsync(Guid id);
 
-        Task<IEnumerable<TEntity>> GetAllAsync();
-    }
+    Task<IEnumerable<TEntity>> GetAllAsync();
 }

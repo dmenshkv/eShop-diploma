@@ -3,38 +3,37 @@ using Basket.Entites.Common;
 using Infrastructure.Services.Interfaces;
 using StackExchange.Redis;
 
-namespace Basket.DataAccess.Repositories
+namespace Basket.DataAccess.Repositories;
+
+public class CacheRepository : ICacheRepository
 {
-    public class CacheRepository : ICacheRepository
+    private readonly IJsonSerializer _jsonSerializer;
+    private readonly IDatabase _database;
+
+    public CacheRepository(IJsonSerializer jsonSerializer, IConnectionMultiplexer connectionMultiplexer)
     {
-        private readonly IJsonSerializer _jsonSerializer;
-        private readonly IDatabase _database;
+        _jsonSerializer = jsonSerializer;
+        _database = connectionMultiplexer.GetDatabase();
+    }
 
-        public CacheRepository(IJsonSerializer jsonSerializer, IConnectionMultiplexer connectionMultiplexer)
+    public async Task<bool> AddOrUpdateAsync(Guid id, CustomerBasket customerBasket)
+    {
+        if (customerBasket == null)
         {
-            _jsonSerializer = jsonSerializer;
-            _database = connectionMultiplexer.GetDatabase();
+            throw new ArgumentNullException(nameof(customerBasket), "Customer basket cannot be null");
         }
 
-        public async Task<bool> AddOrUpdateAsync(Guid id, CustomerBasket customerBasket)
-        {
-            if (customerBasket == null)
-            {
-                throw new ArgumentNullException(nameof(customerBasket), "Customer basket cannot be null");
-            }
+        var basket = _jsonSerializer.Serialize(customerBasket);
 
-            var basket = _jsonSerializer.Serialize(customerBasket);
+        return await _database.StringSetAsync(id.ToString(), basket);
+    }
 
-            return await _database.StringSetAsync(id.ToString(), basket);
-        }
+    public async Task<CustomerBasket> GetAsync(Guid id)
+    { 
+       var basket = await _database.StringGetAsync(id.ToString());
 
-        public async Task<CustomerBasket> GetAsync(Guid id)
-        { 
-           var basket = await _database.StringGetAsync(id.ToString());
-
-            return basket.HasValue ?
-                _jsonSerializer.Deserialize<CustomerBasket>(basket!)!
-                : new CustomerBasket();
-        }
+        return basket.HasValue ?
+            _jsonSerializer.Deserialize<CustomerBasket>(basket!)!
+            : new CustomerBasket();
     }
 }

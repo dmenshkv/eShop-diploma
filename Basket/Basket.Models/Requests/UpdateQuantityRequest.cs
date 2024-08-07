@@ -1,12 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Basket.Models.Requests
-{
-    [ExcludeFromCodeCoverage]
-    public class UpdateQuantityRequest
-    {
-        public Guid Id { get; set; }
+namespace Basket.Models.Requests;
 
-        public Dictionary<Guid, int> Quantities { get; set; } = null!;
-    }
+[ExcludeFromCodeCoverage]
+public class UpdateQuantityRequest
+{
+    public Guid Id { get; set; }
+
+    public Dictionary<Guid, int> Quantities { get; set; } = null!;
 }

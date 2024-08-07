@@ -1,12 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.Constants
-{
-    [ExcludeFromCodeCoverage]
-    public static class SortingCategoriesConstants
-    {
-        public const string PriceAscending = "Price asc";
+namespace Marketplace.Models.Constants;
 
-        public const string PriceDescending = "Price desc";
-    }
+[ExcludeFromCodeCoverage]
+public static class SortingCategoriesConstants
+{
+    public const string PriceAscending = "Price asc";
+
+    public const string PriceDescending = "Price desc";
 }

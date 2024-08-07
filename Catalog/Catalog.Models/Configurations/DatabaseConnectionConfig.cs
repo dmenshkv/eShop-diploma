@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Catalog.Models.Configurations
+namespace Catalog.Models.Configurations;
+
+[ExcludeFromCodeCoverage]
+public class DatabaseConnectionConfig
 {
-    [ExcludeFromCodeCoverage]
-    public class DatabaseConnectionConfig
-    {
-        public string ConnectionString { get; set; } = null!;
-    }
+    public string ConnectionString { get; set; } = null!;
 }

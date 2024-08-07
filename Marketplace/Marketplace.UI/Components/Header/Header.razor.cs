@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿namespace Marketplace.UI.Components.Header;
 
-namespace Marketplace.UI.Components.Header
+public partial class Header
 {
-    public partial class Header
-    {
-        [Inject]
-        private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = null!;
 
-        private void HandleOnClick()
-        {
-            NavigationManager.NavigateTo("/basket");
-        }
+    private void HandleOnClick()
+    {
+        NavigationManager.NavigateTo("/basket");
     }
 }

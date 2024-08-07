@@ -1,4 +1,3 @@
-using Catalog.API.Constants;
 using Catalog.API.Extensions;
 using Catalog.Core.Extensions;
 using Microsoft.AspNetCore.OData;

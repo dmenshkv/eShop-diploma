@@ -1,4 +1,3 @@
-using Marketplace.Models.Configurations;
 using Marketplace.UI;
 using Marketplace.UI.Core.Extensions;
 using Microsoft.AspNetCore.Components.Web;

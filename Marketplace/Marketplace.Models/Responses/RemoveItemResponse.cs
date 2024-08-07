@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.Responses
+namespace Marketplace.Models.Responses;
+
+[ExcludeFromCodeCoverage]
+public class RemoveItemResponse
 {
-    [ExcludeFromCodeCoverage]
-    public class RemoveItemResponse
-    {
-        public bool IsRemoved { get; set; }
-    }
+    public bool IsRemoved { get; set; }
 }

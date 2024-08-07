@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Basket.Models.DTOs
+namespace Basket.Models.DTOs;
+
+[ExcludeFromCodeCoverage]
+public class CustomerBasketDto
 {
-    [ExcludeFromCodeCoverage]
-    public class CustomerBasketDto
-    {
-        public IEnumerable<BasketItemDto> Items { get; set; } = null!;
-    }
+    public IEnumerable<BasketItemDto> Items { get; set; } = null!;
 }
