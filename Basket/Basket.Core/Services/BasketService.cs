@@ -63,6 +63,7 @@ public class BasketService : IBasketService
         }
 
         basket.Items.Remove(itemToRemove);
+
         var result = await _cacheRepository.AddOrUpdateAsync(id, basket);
 
         return new RemoveItemResponse()

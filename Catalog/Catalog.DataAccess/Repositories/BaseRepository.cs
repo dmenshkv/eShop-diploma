@@ -1,5 +1,6 @@
 ﻿using Catalog.DataAccess.Exceptions;
 using Catalog.DataAccess.Repositories.Interfaces;
+using Catalog.DataAccess.Resources;
 
 namespace Catalog.DataAccess.Repositories;
 
@@ -17,7 +18,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
     {
         if (item == null)
         {
-            throw new ArgumentNullException(nameof(item), "Item to add can not be null");
+            throw new ArgumentNullException(nameof(item), ErrorMessages.AddItemNullError);
         }
 
         await _applicationDbContext.Set<TEntity>().AddAsync(item);
@@ -37,14 +38,11 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
     public virtual async Task<bool> RemoveAsync(Guid id)
     {
-        var item = await _applicationDbContext.Set<TEntity>().FindAsync(id);
-
-        if (item == null)
-        {
-            throw new EntityNotFoundException($"Item with id {id} was not found");
-        }
+        var item = await _applicationDbContext.Set<TEntity>().FindAsync(id)
+            ?? throw new EntityNotFoundException(string.Format(ErrorMessages.ItemNotFoundError, id));
 
         _applicationDbContext.Remove(item);
+
         var rowsAffected = await _applicationDbContext.SaveChangesAsync();
 
         return rowsAffected > 0;
@@ -54,20 +52,17 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
     {
         if (item == null)
         {
-            throw new ArgumentNullException(nameof(item), "Item to update can not be null");
+            throw new ArgumentNullException(nameof(item), ErrorMessages.UpdateItemNullError);
         }
 
         var existingItem = await _applicationDbContext
             .Set<TEntity>()
             .AsNoTracking()
-            .FirstOrDefaultAsync(f => f.Id == id);
-
-        if (existingItem == null)
-        {
-            throw new EntityNotFoundException($"Item with id {id} was not found");
-        }
+            .FirstOrDefaultAsync(f => f.Id == id)
+            ?? throw new EntityNotFoundException(string.Format(ErrorMessages.ItemNotFoundError, id));
 
         _applicationDbContext.Set<TEntity>().Update(item);
+
         var rowsAffected = await _applicationDbContext.SaveChangesAsync();
 
         return rowsAffected > 0;

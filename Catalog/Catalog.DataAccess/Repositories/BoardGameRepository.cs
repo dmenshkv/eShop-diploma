@@ -1,5 +1,6 @@
 ﻿using Catalog.DataAccess.Exceptions;
 using Catalog.DataAccess.Repositories.Interfaces;
+using Catalog.DataAccess.Resources;
 
 namespace Catalog.DataAccess.Repositories;
 
@@ -28,12 +29,8 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
             .Include(i => i.Brand)
             .Include(i => i.Categories)
             .Include(i => i.Mechanics)
-            .FirstOrDefaultAsync();
-
-        if (boardGame == null)
-        {
-            throw new EntityNotFoundException($"Board game with the slug {slug} was not found");
-        }
+            .FirstOrDefaultAsync()
+            ?? throw new EntityNotFoundException(string.Format(ErrorMessages.BoardGameNotFoundError, slug));
 
         return boardGame;
     }
