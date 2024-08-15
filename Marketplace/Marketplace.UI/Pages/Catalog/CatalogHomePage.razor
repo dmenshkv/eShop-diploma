@@ -5,7 +5,7 @@
 
 @inherits PageComponentBase;
 
-@attribute [Route(HomePageRoute)]
+@attribute [Route(RouteConstants.HomePage)]
 
 <figure>
     <img class="bgc-image" src="images/main_banner.png" />
@@ -27,7 +27,7 @@ else
         <div class="col-2 mx-4 my-4 bgc-sidebar-container">
             <SidebarFilter FilteringOptions="@_filteringOptions" OnFiltersChangedAsync="OnFiltersChangedAsync" />
         </div>
-        @if(IsThereItems)
+        @if (AreThereItems)
         {
             <div class="col-10 mx-4 my-4 bgc-column-container">
                 <div class="bgc-flex-column">

@@ -11,8 +11,9 @@ public partial class Error
 
     public virtual void ProcessError()
     {
-        Message = $"Oops, something went wrong";
+        Message = "Oops, something went wrong";
         IsErrorActive = true;
+
         StateHasChanged();
     }
 

@@ -1,13 +1,27 @@
 ﻿using Marketplace.Models.Constants;
-using Marketplace.Models.ViewModels;
 using Marketplace.Models.ViewModels.Filters;
 
 namespace Marketplace.UI.Pages.Catalog;
 
 public partial class CatalogHomePage : PageComponentBase
 {
+    private PaginationModel _pagination = null!;
+
+    private int _pageNumber = 1;
+
+    private int _pageSize;
+
+    private FilteringOptionsViewModel _filteringOptions = null!;
+
+    private ODataQueryParameters _queryParameters = new ODataQueryParameters()
+    {
+        OrderBy = SortingCategoriesConstants.PriceAscending
+    };
+
     [Parameter]
     public IEnumerable<BoardGameViewModel> Items { get; set; } = null!;
+
+    protected bool AreThereItems { get; set; }
 
     [Inject]
     private IOptions<AppSettings> AppSettings { get; set; } = default!;
@@ -23,24 +37,6 @@ public partial class CatalogHomePage : PageComponentBase
 
     [Inject]
     private IMechanicService MechanicService { get; set; } = null!;
-
-    private const string HomePageRoute = "/";
-
-    protected bool IsNextPageLoading { get; set; }
-    protected bool IsThereItems { get; set; } = true;
-
-    private PaginationModel _pagination = null!;
-
-    private int _pageNumber = 1;
-
-    private int _pageSize;
-
-    private FilteringOptionsViewModel _filteringOptions = null!;
-
-    private ODataQueryParameters _queryParameters = new ODataQueryParameters()
-    {
-        OrderBy = SortingCategoriesConstants.PriceAscending
-    };
 
     protected override async Task OnInitializedAsync()
     {
@@ -58,11 +54,53 @@ public partial class CatalogHomePage : PageComponentBase
             var loadPageTask = LoadPageAsync();
             var getFilteringOptionsTask = GetFilteringOptions();
 
-            await Task.WhenAll(loadPageTask, getFilteringOptionsTask);
-
             _filteringOptions = await getFilteringOptionsTask;
+
             await loadPageTask;
         });
+    }
+
+    private async Task OnFiltersChangedAsync(ODataQueryParameters queryParameters)
+    {
+        await LoadPageAsync(queryParameters);
+    }
+
+    private async Task OnCurrentPageChangedAsync(int pageNumber)
+    {
+        _pageNumber = pageNumber;
+
+        await LoadPageAsync();
+    }
+
+    private async Task LoadPageAsync(ODataQueryParameters? queryParameters = null)
+    {
+        if (queryParameters != null)
+        {
+            _queryParameters = queryParameters;
+        }
+
+        ChangePage();
+
+        var items = await BoardGameService.GetAllBoardGamesAsync(_queryParameters);
+
+        AreThereItems = items.Count > 0;
+
+        Items = items.BoardGames;
+
+        _pagination = new PaginationModel()
+        {
+            CurrentPage = _pageNumber,
+            PageSize = _pageSize,
+            TotalItemsCount = items.Count
+        };
+
+        StateHasChanged();
+    }
+
+    private void ChangePage()
+    {
+        _queryParameters.Skip = (_pageNumber - 1) * _pageSize;
+        _queryParameters.Top = _pageSize;
     }
 
     private async Task<FilteringOptionsViewModel> GetFilteringOptions()
@@ -79,55 +117,14 @@ public partial class CatalogHomePage : PageComponentBase
 
         return new FilteringOptionsViewModel()
         {
-            Brands = brands.Value.Select(s => s.Name).ToList(),
+            Brands = brands.Value.Select(b => b.Name).ToList(),
             SortingCategories = new List<string>()
             {
                 SortingCategoriesConstants.PriceAscending,
                 SortingCategoriesConstants.PriceDescending,
             },
-            Categories = categories.Value.Select(s => s.Name).ToList(),
-            Mechanics = mechanics.Value.Select(s => s.Name).ToList()
+            Categories = categories.Value.Select(c => c.Name).ToList(),
+            Mechanics = mechanics.Value.Select(m => m.Name).ToList()
         };
-    }
-
-    private async Task OnFiltersChangedAsync(ODataQueryParameters queryParameters)
-    {
-        await LoadPageAsync(queryParameters);
-    }
-
-    private async Task OnCurrentPageChangedAsync(int pageNumber)
-    {
-        _pageNumber = pageNumber;
-        await LoadPageAsync();
-    }
-
-    private async Task LoadPageAsync(ODataQueryParameters? queryParameters = null)
-    {
-        if (queryParameters != null)
-        {
-            _queryParameters = queryParameters;
-        }
-
-        ChangePage();
-
-        var items = await BoardGameService.GetAllBoardGamesAsync(_queryParameters);
-
-        IsThereItems = items.Count != 0 ? true : false;
-
-        Items = items.BoardGames;
-        _pagination = new PaginationModel()
-        {
-            CurrentPage = _pageNumber,
-            PageSize = _pageSize,
-            TotalItemsCount = items.Count
-        };
-
-        StateHasChanged();
-    }
-
-    private void ChangePage()
-    {
-        _queryParameters.Skip = (_pageNumber - 1) * _pageSize;
-        _queryParameters.Top = _pageSize;
     }
 }

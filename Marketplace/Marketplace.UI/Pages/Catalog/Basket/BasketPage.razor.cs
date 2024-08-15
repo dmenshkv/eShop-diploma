@@ -4,6 +4,8 @@ namespace Marketplace.UI.Pages.Catalog.Basket;
 
 public partial class BasketPage : PageComponentBase
 {
+    private const string BasketRoute = "basket";
+
     [Parameter]
     public CustomerBasketViewModel CustomerBasket { get; set; } = new CustomerBasketViewModel();
 
@@ -12,8 +14,6 @@ public partial class BasketPage : PageComponentBase
 
     [Inject]
     private IOptions<AppSettings> AppSettings { get; set; } = default!;
-
-    private const string BasketRoute = "basket";
 
     protected override async Task OnInitializedAsync()
     {
@@ -47,7 +47,7 @@ public partial class BasketPage : PageComponentBase
                 StateHasChanged();
             }
         }
-        catch (NullReferenceException)
+        catch (Exception)
         {
             Error?.ProcessError();
         }

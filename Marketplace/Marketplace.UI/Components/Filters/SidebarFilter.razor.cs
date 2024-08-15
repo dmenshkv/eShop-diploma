@@ -5,12 +5,6 @@ namespace Marketplace.UI.Components.Filters;
 
 public partial class SidebarFilter
 {
-    [Parameter]
-    public EventCallback<ODataQueryParameters> OnFiltersChangedAsync { get; set; }
-
-    [Parameter]
-    public FilteringOptionsViewModel FilteringOptions { get; set; } = null!;
-
     private ODataQueryParameters _queryParameters = new ODataQueryParameters();
 
     private Dictionary<string, bool> _categoryFilters = new Dictionary<string, bool>();
@@ -21,60 +15,50 @@ public partial class SidebarFilter
 
     private string _sortCategory = null!;
 
+    [Parameter]
+    public EventCallback<ODataQueryParameters> OnFiltersChangedAsync { get; set; }
+
+    [Parameter]
+    public FilteringOptionsViewModel FilteringOptions { get; set; } = null!;
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        foreach (var brand in FilteringOptions.Brands)
-        {
-            _brandsFilter.Add(brand, false);
-        }
+        InitializeFilters(_brandsFilter, FilteringOptions.Brands);
+        InitializeFilters(_categoryFilters, FilteringOptions.Categories);
+        InitializeFilters(_mechanicFilters, FilteringOptions.Mechanics);
+    }
 
-        foreach (var category in FilteringOptions.Categories)
+    private void InitializeFilters(Dictionary<string, bool> filterDictionary, IEnumerable<string> options)
+    {
+        foreach (var option in options)
         {
-            _categoryFilters.Add(category, false);
-        }
-
-        foreach (var mechanic in FilteringOptions.Mechanics)
-        {
-            _mechanicFilters.Add(mechanic, false);
+            filterDictionary.Add(option, false);
         }
     }
 
     private async Task OnFiltersSelectedChangedAsync()
     {
-        var brands = _brandsFilter.Where(w => w.Value).Select(s => s.Key).ToList();
-        var categories = _categoryFilters.Where(w => w.Value).Select(s => s.Key).ToList();
-        var mechanics = _mechanicFilters.Where(w => w.Value).Select(s => s.Key).ToList();
+        var brands = _brandsFilter.Where(kvp => kvp.Value).Select(kvp => kvp.Key).ToList();
+        var categories = _categoryFilters.Where(kvp => kvp.Value).Select(kvp => kvp.Key).ToList();
+        var mechanics = _mechanicFilters.Where(kvp => kvp.Value).Select(kvp => kvp.Key).ToList();
 
-        var brandsFiltersApplied = brands.Count > 0;
-        var categoriesFiltersApplied = categories.Count > 0;
-        var mechanicsFiltersApplied = mechanics.Count > 0;
+        var filtersToApply = new List<(FilterCollectionModel Model, List<string> Values)>
+        {
+            (new FilterCollectionModel() { FilterTypeEnum = FilterTypeEnum.Brand, IsCollection = false }, brands),
+            (new FilterCollectionModel() { FilterTypeEnum = FilterTypeEnum.Category, IsCollection = true }, categories),
+            (new FilterCollectionModel() { FilterTypeEnum = FilterTypeEnum.Mechanic, IsCollection = true }, mechanics)
+        };
 
         _queryParameters.Filters = new Dictionary<FilterCollectionModel, List<string>>();
         _queryParameters.OrderBy = _sortCategory ?? FilteringOptions.SortingCategories.First();
 
-        if (brandsFiltersApplied || categoriesFiltersApplied || mechanicsFiltersApplied)
+        foreach (var (model, values) in filtersToApply)
         {
-            if (brandsFiltersApplied)
+            if (values.Any())
             {
-                AddFilterToQuery(
-                    new FilterCollectionModel() { FilterTypeEnum = FilterTypeEnum.Brand, IsCollection = false },
-                    _brandsFilter.Where(w => w.Value).Select(s => s.Key).ToList());
-            }
-
-            if (categoriesFiltersApplied)
-            {
-                AddFilterToQuery(
-                    new FilterCollectionModel() { FilterTypeEnum = FilterTypeEnum.Category, IsCollection = true },
-                    _categoryFilters.Where(w => w.Value).Select(s => s.Key).ToList());
-            }
-
-            if (mechanicsFiltersApplied)
-            {
-                AddFilterToQuery(
-                    new FilterCollectionModel() { FilterTypeEnum = FilterTypeEnum.Mechanic, IsCollection = true },
-                    _mechanicFilters.Where(w => w.Value).Select(s => s.Key).ToList());
+                AddFilterToQuery(model, values);
             }
         }
 

@@ -1,12 +1,15 @@
 ﻿using Marketplace.Models.Requests.Basket;
 using Marketplace.Models.Responses;
-using Marketplace.Models.ViewModels;
 using Marketplace.Models.ViewModels.Basket;
 
 namespace Marketplace.UI.Pages.Catalog.BoardGame;
 
 public partial class BoardGameDetailsPage : PageComponentBase
 {
+    private BoardGameViewModel _boardGame = null!;
+
+    private int _quantity = 1;
+
     [Parameter]
     public string Slug { get; set; } = null!;
 
@@ -22,12 +25,6 @@ public partial class BoardGameDetailsPage : PageComponentBase
     [Inject]
     private NavigationManager NavigationManager { get; set; } = null!;
 
-    private const string BoardGameRoute = "board-games/{slug}";
-
-    private BoardGameViewModel _boardGame = null!;
-
-    private int _quantity = 1;
-
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -37,7 +34,7 @@ public partial class BoardGameDetailsPage : PageComponentBase
 
     protected override async Task InitializePageAsync()
     {
-        await ExecuteSafelyAsync(async() =>
+        await ExecuteSafelyAsync(async () =>
         {
             var uri = GetCurrentPagePath();
             var response = await HttpClientService.GetAsync<GetBoardGameBySlugResponse>(uri);
@@ -63,7 +60,7 @@ public partial class BoardGameDetailsPage : PageComponentBase
                 }
             });
         }
-        catch (NullReferenceException)
+        catch (Exception)
         {
             Error?.ProcessError();
         }

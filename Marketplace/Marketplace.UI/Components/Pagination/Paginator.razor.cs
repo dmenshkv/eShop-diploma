@@ -13,6 +13,7 @@ public partial class Paginator
     private async Task OnPageChangedAsync(int pageNumber)
     {
         Pagination.CurrentPage = pageNumber;
+
         await OnCurrentPageChangedAsync.InvokeAsync(Pagination.CurrentPage);
     }
 }

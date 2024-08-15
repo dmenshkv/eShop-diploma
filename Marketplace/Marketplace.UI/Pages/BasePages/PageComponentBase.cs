@@ -16,9 +16,10 @@ public abstract class PageComponentBase : ComponentBase
         try
         {
             IsLoading = true;
+
             await function();
         }
-        catch (NullReferenceException)
+        catch (Exception)
         {
             Error?.ProcessError();
         }

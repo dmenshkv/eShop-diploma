@@ -29,11 +29,9 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
     public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
     {
-        var items = await _applicationDbContext.Set<TEntity>()
+        return await _applicationDbContext.Set<TEntity>()
             .AsNoTracking()
             .ToListAsync();
-
-        return items;
     }
 
     public virtual async Task<bool> RemoveAsync(Guid id)

@@ -17,6 +17,7 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
             .Include(i => i.Brand)
             .Include(i => i.Categories)
             .Include(i => i.Mechanics)
+            .AsNoTracking()
             .ToListAsync();
 
         return boardGames;

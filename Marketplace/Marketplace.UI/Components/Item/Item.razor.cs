@@ -1,4 +1,4 @@
-﻿using Marketplace.Models.ViewModels;
+﻿using Marketplace.UI.Constants;
 
 namespace Marketplace.UI.Components.Item;
 
@@ -10,7 +10,7 @@ public partial class Item
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
-    private string _path => $"/board-games/{BoardGame.Slug}";
+    private string _path => string.Format(RouteFormats.BoardGameFormat, BoardGame.Slug);
 
     private void NavigateToItem()
     {

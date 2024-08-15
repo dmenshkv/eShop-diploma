@@ -1,4 +1,6 @@
-﻿namespace Marketplace.UI.Components.Header;
+﻿using Marketplace.UI.Constants;
+
+namespace Marketplace.UI.Components.Header;
 
 public partial class Header
 {
@@ -7,6 +9,6 @@ public partial class Header
 
     private void HandleOnClick()
     {
-        NavigationManager.NavigateTo("/basket");
+        NavigationManager.NavigateTo(RouteConstants.Basket);
     }
 }
