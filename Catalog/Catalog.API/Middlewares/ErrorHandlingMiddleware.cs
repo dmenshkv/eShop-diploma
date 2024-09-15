@@ -44,9 +44,7 @@ public class ErrorHandlingMiddleware
                 problemDetails = GetEntityNotFoundProblemDetails(exception.Message, context.Request.Path.Value!);
                 break;
             case DbUpdateException:
-                httpStatusCode = StatusCodes.Status500InternalServerError;
-                problemDetails = GetDbUpdateProblemDetails(exception.Message, context.Request.Path.Value!);
-                break;
+            case InvalidOperationException:
             default:
                 httpStatusCode = StatusCodes.Status500InternalServerError;
                 problemDetails = GetDefaultProblemDetails(exception.Message, context.Request.Path.Value!);
@@ -79,16 +77,6 @@ public class ErrorHandlingMiddleware
         return new ProblemDetails
         {
             Title = nameof(HttpStatusCode.NotFound),
-            Detail = message,
-            Instance = instance
-        };
-    }
-
-    private ProblemDetails GetDbUpdateProblemDetails(string message, string instance)
-    {
-        return new ProblemDetails
-        {
-            Title = nameof(HttpStatusCode.InternalServerError),
             Detail = message,
             Instance = instance
         };

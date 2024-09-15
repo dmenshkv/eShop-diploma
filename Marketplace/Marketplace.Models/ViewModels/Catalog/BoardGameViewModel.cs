@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.ViewModels;
+namespace Marketplace.Models.ViewModels.Catalog;
 
 [ExcludeFromCodeCoverage]
 public class BoardGameViewModel

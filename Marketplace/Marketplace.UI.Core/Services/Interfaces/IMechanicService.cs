@@ -1,12 +1,17 @@
-﻿namespace Marketplace.UI.Core.Services.Interfaces;
+﻿using Marketplace.Models.Requests.Catalog;
+using Marketplace.Models.ViewModels.Catalog;
+
+namespace Marketplace.UI.Core.Services.Interfaces;
 
 public interface IMechanicService
 {
-    Task<AddItemResponse> AddMechanicAsync(AddItemRequest<MechanicViewModel> addItemRequest);
+    Task<MechanicViewModel> CreateAsync(CreateMechanicRequest request);
 
-    Task<UpdateItemResponse> UpdateMechanicAsync(Guid id, UpdateItemRequest<MechanicViewModel> updateItemRequest);
+    Task<MechanicViewModel> GetAsync(Guid id);
 
-    Task<RemoveItemResponse> RemoveMechanicAsync(Guid id);
+    Task<GetItemsResponse<MechanicViewModel>> GetAllAsync();
 
-    Task<GetAllItemsResponse<MechanicViewModel>> GetAllMechanicsAsync();
+    Task<MechanicViewModel> UpdateAsync(Guid id, MechanicViewModel mechanic);
+
+    Task DeleteAsync(Guid id);
 }

@@ -6,5 +6,5 @@ public interface ICacheRepository
 {
     Task<CustomerBasket> GetAsync(Guid id);
 
-    Task<bool> AddOrUpdateAsync(Guid id, CustomerBasket customerBasket);
+    Task<bool> UpdateAsync(Guid id, CustomerBasket customerBasket);
 }

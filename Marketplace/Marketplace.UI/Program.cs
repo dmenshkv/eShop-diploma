@@ -9,7 +9,7 @@ var configuration = builder.Configuration;
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.Configure<AppSettings>(configuration);
+builder.Services.ConfigureOptions(configuration);
 
 builder.Services.AddServices();
 

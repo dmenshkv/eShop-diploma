@@ -1,4 +1,8 @@
-﻿namespace Marketplace.UI.Core.Services;
+﻿using Marketplace.Models.Requests.Catalog;
+using Marketplace.Models.ViewModels.Catalog;
+using Marketplace.UI.Core.Constants;
+
+namespace Marketplace.UI.Core.Services;
 
 public class CategoryService : BaseService<CategoryViewModel>, ICategoryService
 {
@@ -11,26 +15,31 @@ public class CategoryService : BaseService<CategoryViewModel>, ICategoryService
     {
         _appSettings = appSettings;
 
-        _baseApiPath = $"{_appSettings.Value.CatalogUrl}/categories";
+        _baseApiPath = _baseApiPath = string.Format(RouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.Category);
     }
 
-    public async Task<AddItemResponse> AddCategoryAsync(AddItemRequest<CategoryViewModel> addItemRequest)
+    public async Task<CategoryViewModel> CreateAsync(CreateCategoryRequest request)
     {
-        return await AddAsync(_baseApiPath, addItemRequest);
+        return await AddAsync(_baseApiPath, request);
     }
 
-    public async Task<GetAllItemsResponse<CategoryViewModel>> GetAllCategoriesAsync()
+    public async Task<CategoryViewModel> GetAsync(Guid id)
+    {
+        return await GetAsync($"{_baseApiPath}/{id}");
+    }
+
+    public async Task<GetItemsResponse<CategoryViewModel>> GetAllAsync()
     {
         return await GetAllAsync(_baseApiPath);
     }
 
-    public async Task<RemoveItemResponse> RemoveCategoryAsync(Guid id)
+    public async Task<CategoryViewModel> UpdateAsync(Guid id, CategoryViewModel brand)
     {
-        return await RemoveAsync($"{_baseApiPath}/{id}");
+        return await UpdateAsync($"{_baseApiPath}/{id}", brand);
     }
 
-    public async Task<UpdateItemResponse> UpdateCategoryAsync(Guid id, UpdateItemRequest<CategoryViewModel> updateItemRequest)
+    public async Task DeleteAsync(Guid id)
     {
-        return await UpdateAsync($"{_baseApiPath}/{id}", updateItemRequest);
+        await RemoveAsync($"{_baseApiPath}/{id}");
     }
 }

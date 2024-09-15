@@ -19,6 +19,7 @@ public static class ApplicationBuilderExtensions
             .CreateScope();
 
         var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+
         await DbInitializer.InitializeAsync(context!);
     }
 }

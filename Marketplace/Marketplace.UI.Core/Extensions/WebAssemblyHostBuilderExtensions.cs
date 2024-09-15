@@ -2,6 +2,7 @@
 using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
 using Marketplace.UI.Core.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Marketplace.UI.Core.Extensions;
@@ -9,6 +10,11 @@ namespace Marketplace.UI.Core.Extensions;
 [ExcludeFromCodeCoverage]
 public static class WebAssemblyHostBuilderExtensions
 {
+    public static void ConfigureOptions(this IServiceCollection serviceCollection, IConfiguration configuration)
+    {
+        serviceCollection.Configure<AppSettings>(configuration);
+    }
+
     public static void AddServices(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddHttpClient();

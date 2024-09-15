@@ -2,7 +2,11 @@
 
 public interface IBoardGameRepository
 {
-    Task<BoardGame> GetBoardGameBySlugAsync(string slug);
+    Task<BoardGame> CreateAsync(BoardGame boardGame);
 
-    Task<IEnumerable<BoardGame>> GetAllBoardGamesAsync();
+    Task<BoardGame> UpdateAsync(Guid id, BoardGame boardGame);
+
+    Task<IReadOnlyList<BoardGame>> GetAllAsync();
+
+    Task<BoardGame> GetBySlugAsync(string slug);
 }

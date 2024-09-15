@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.API.Middlewares
 {
@@ -39,6 +39,7 @@ namespace Basket.API.Middlewares
                     httpStatusCode = StatusCodes.Status400BadRequest;
                     problemDetails = GetArgumentNullProblemDetails(exception.Message, context.Request.Path.Value!);
                     break;
+                case InvalidOperationException:
                 default:
                     httpStatusCode = StatusCodes.Status500InternalServerError;
                     problemDetails = GetDefaultProblemDetails(exception.Message, context.Request.Path.Value!);

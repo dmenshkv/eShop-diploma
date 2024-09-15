@@ -2,11 +2,14 @@
 
 public interface IMechanicService
 {
-    Task<AddItemResponse> AddMechanicAsync(AddItemRequest<MechanicDto> addItemRequest);
+    Task<MechanicDto> CreateAsync<CreateMechanicRequest>(CreateMechanicRequest request)
+        where CreateMechanicRequest : class;
 
-    Task<UpdateItemResponse> UpdateMechanicAsync(Guid id, UpdateItemRequest<MechanicDto> updateItemRequest);
+    Task<MechanicDto> GetByIdAsync(Guid id);
 
-    Task<RemoveItemResponse> RemoveMechanicAsync(Guid id);
+    Task<GetItemsResponse<MechanicDto>> GetAllAsync();
 
-    Task<GetAllItemsResponse<MechanicDto>> GetAllMechanicsAsync();
+    Task<MechanicDto> UpdateAsync(Guid id, MechanicDto mechanic);
+
+    Task DeleteAsync(Guid id);
 }

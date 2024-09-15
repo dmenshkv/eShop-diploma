@@ -1,4 +1,5 @@
-﻿using Catalog.DataAccess.Exceptions;
+﻿using System.Linq.Expressions;
+using Catalog.DataAccess.Exceptions;
 using Catalog.DataAccess.Repositories.Interfaces;
 using Catalog.DataAccess.Resources;
 
@@ -14,55 +15,78 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         _applicationDbContext = applicationDbContext;
     }
 
-    public virtual async Task<Guid> AddAsync(TEntity item)
+    public virtual async Task<TEntity> CreateAsync(TEntity entity)
     {
-        if (item == null)
+        if (entity == null)
         {
-            throw new ArgumentNullException(nameof(item), ErrorMessages.AddItemNullError);
+            throw new ArgumentNullException(nameof(entity), ErrorMessages.AddItemNullError);
         }
 
-        await _applicationDbContext.Set<TEntity>().AddAsync(item);
+        await _applicationDbContext.Set<TEntity>().AddAsync(entity);
         await _applicationDbContext.SaveChangesAsync();
 
-        return item.Id;
+        return entity;
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+    public virtual async Task<TEntity> GetByIdAsync(Guid id)
+    {
+        return await _applicationDbContext
+            .Set<TEntity>()
+            .AsNoTracking()
+            .SingleOrDefaultAsync(e => e.Id == id)
+            ?? throw new EntityNotFoundException(string.Format(ErrorMessages.ItemNotFoundError, id));
+    }
+
+    public virtual async Task<IReadOnlyList<TEntity>> GetAllAsync()
     {
         return await _applicationDbContext.Set<TEntity>()
             .AsNoTracking()
             .ToListAsync();
     }
 
-    public virtual async Task<bool> RemoveAsync(Guid id)
+    public virtual async Task<IEnumerable<TEntity>> FilterAsync(Expression<Func<TEntity, bool>> expression, bool asNoTracking = true)
     {
-        var item = await _applicationDbContext.Set<TEntity>().FindAsync(id)
-            ?? throw new EntityNotFoundException(string.Format(ErrorMessages.ItemNotFoundError, id));
-
-        _applicationDbContext.Remove(item);
-
-        var rowsAffected = await _applicationDbContext.SaveChangesAsync();
-
-        return rowsAffected > 0;
-    }
-
-    public virtual async Task<bool> UpdateAsync(Guid id, TEntity item)
-    {
-        if (item == null)
+        if (expression is null)
         {
-            throw new ArgumentNullException(nameof(item), ErrorMessages.UpdateItemNullError);
+            throw new ArgumentNullException(nameof(expression), ErrorMessages.FilterExpressionNullError);
         }
 
-        var existingItem = await _applicationDbContext
+        var query = _applicationDbContext.Set<TEntity>().Where(expression);
+
+        if (asNoTracking)
+        {
+            query = query.AsNoTracking();
+        }
+
+        return await query.ToListAsync();
+    }
+
+    public virtual async Task<TEntity> UpdateAsync(Guid id, TEntity entity)
+    {
+        if (entity == null)
+        {
+            throw new ArgumentNullException(nameof(entity), ErrorMessages.UpdateItemNullError);
+        }
+
+        var existingEntity = await _applicationDbContext
             .Set<TEntity>()
-            .AsNoTracking()
-            .FirstOrDefaultAsync(f => f.Id == id)
+            .SingleOrDefaultAsync(e => e.Id == id)
             ?? throw new EntityNotFoundException(string.Format(ErrorMessages.ItemNotFoundError, id));
 
-        _applicationDbContext.Set<TEntity>().Update(item);
+        _applicationDbContext.Entry(existingEntity).CurrentValues.SetValues(entity);
 
-        var rowsAffected = await _applicationDbContext.SaveChangesAsync();
+        await _applicationDbContext.SaveChangesAsync();
 
-        return rowsAffected > 0;
+        return entity;
+    }
+
+    public virtual async Task DeleteAsync(Guid id)
+    {
+        var entity = await _applicationDbContext.Set<TEntity>().SingleOrDefaultAsync(e => e.Id == id)
+            ?? throw new EntityNotFoundException(string.Format(ErrorMessages.ItemNotFoundError, id));
+
+        _applicationDbContext.Remove(entity);
+
+        await _applicationDbContext.SaveChangesAsync();
     }
 }

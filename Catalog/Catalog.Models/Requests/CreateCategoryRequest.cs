@@ -3,8 +3,7 @@
 namespace Catalog.Models.Requests;
 
 [ExcludeFromCodeCoverage]
-public class AddItemRequest<TItem>
-    where TItem : class
+public class CreateCategoryRequest
 {
-    public TItem Item { get; init; } = null!;
+    public string Name { get; set; } = null!;
 }

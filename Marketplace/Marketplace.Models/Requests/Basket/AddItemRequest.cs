@@ -4,9 +4,9 @@ using Marketplace.Models.ViewModels.Basket;
 namespace Marketplace.Models.Requests.Basket;
 
 [ExcludeFromCodeCoverage]
-public class AddToBasketRequest
+public class AddItemRequest
 {
-    public Guid Id { get; set; }
+    public Guid CustomerId { get; set; }
 
     public BasketItemViewModel Item { get; set; } = null!;
 }

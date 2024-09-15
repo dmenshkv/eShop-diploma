@@ -2,6 +2,7 @@
 using Catalog.Models.Configurations;
 using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
+using Microsoft.OpenApi.Models;
 
 namespace Catalog.API.Extensions
 {
@@ -18,6 +19,28 @@ namespace Catalog.API.Extensions
             serviceCollection.AddTransient<IJsonSerializer, JsonSerializer>();
         }
 
+        public static void ConfigureOptions(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            serviceCollection.Configure<CatalogConfig>(configuration);
+        }
+
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Catalog API",
+                    Description = "API for managing and retrieving catalog information, including board games and related entities.",
+                    Version = "v1"
+                });
+
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, "Catalog.API.xml");
+
+                options.IncludeXmlComments(xmlPath);
+            });
+        }
+
         public static void ConfigureCorsForOrigins(this IServiceCollection services, ConfigurationManager configuration)
         {
             var corsOriginConfiguration = configuration.GetSection(ConfigurationSectionsNames.CorsOrigin)
@@ -32,11 +55,6 @@ namespace Catalog.API.Extensions
                         .WithHeaders("Content-Type")
                         .AllowAnyMethod());
             });
-        }
-
-        public static void ConfigureOptions(this IServiceCollection serviceCollection, IConfiguration configuration)
-        {
-            serviceCollection.Configure<CatalogConfig>(configuration);
         }
     }
 }

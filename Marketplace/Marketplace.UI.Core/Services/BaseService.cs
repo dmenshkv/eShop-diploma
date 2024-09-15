@@ -1,7 +1,7 @@
 ﻿namespace Marketplace.UI.Core.Services;
 
-public class BaseService<TModel>
-    where TModel : class
+public class BaseService<TResponse>
+    where TResponse : class
 {
     protected readonly IHttpClientService _httpClientService;
 
@@ -10,23 +10,30 @@ public class BaseService<TModel>
         _httpClientService = httpClientService;
     }
 
-    public async Task<AddItemResponse> AddAsync(string uri, AddItemRequest<TModel> addItemRequest)
+    public async Task<TResponse> AddAsync<TRequest>(string uri, TRequest request)
+        where TRequest : class
     {
-        return await _httpClientService.PostAsync<AddItemResponse, AddItemRequest<TModel>>(uri, addItemRequest);
+        return await _httpClientService.PostAsync<TResponse, TRequest>(uri, request);
     }
 
-    public async Task<GetAllItemsResponse<TModel>> GetAllAsync(string uri)
+    public async Task<TResponse> GetAsync(string uri)
     {
-        return await _httpClientService.GetAsync<GetAllItemsResponse<TModel>>(uri);
+        return await _httpClientService.GetAsync<TResponse>(uri);
     }
 
-    public async Task<RemoveItemResponse> RemoveAsync(string uri)
+    public async Task<GetItemsResponse<TResponse>> GetAllAsync(string uri)
     {
-        return await _httpClientService.DeleteAsync<RemoveItemResponse>(uri);
+        return await _httpClientService.GetAsync<GetItemsResponse<TResponse>>(uri);
     }
 
-    public async Task<UpdateItemResponse> UpdateAsync(string uri, UpdateItemRequest<TModel> updateItemRequest)
+    public async Task<TResponse> UpdateAsync<TRequest>(string uri, TRequest request)
+        where TRequest : class
     {
-        return await _httpClientService.PutAsync<UpdateItemResponse, UpdateItemRequest<TModel>>(uri, updateItemRequest);
+        return await _httpClientService.PutAsync<TResponse, TRequest>(uri, request);
+    }
+
+    public async Task RemoveAsync(string uri)
+    {
+        await _httpClientService.DeleteAsync(uri);
     }
 }

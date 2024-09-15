@@ -23,14 +23,14 @@ public class HttpClientService : IHttpClientService
     public async Task<TResponse> PostAsync<TResponse, TRequest>(string uri, TRequest body) =>
         await SendAsync<TResponse, TRequest>(uri, HttpMethod.Post, body);
 
+    public async Task<TResponse> GetAsync<TResponse>(string uri) =>
+        await SendAsync<TResponse, object?>(uri, HttpMethod.Get, null);
+
     public async Task<TResponse> PutAsync<TResponse, TRequest>(string uri, TRequest body) =>
         await SendAsync<TResponse, TRequest>(uri, HttpMethod.Put, body);
 
-    public async Task<TResponse> DeleteAsync<TResponse>(string uri) =>
-        await SendAsync<TResponse, object?>(uri, HttpMethod.Delete, null);
-
-    public async Task<TResponse> GetAsync<TResponse>(string uri) =>
-        await SendAsync<TResponse, object?>(uri, HttpMethod.Get, null);
+    public async Task DeleteAsync(string uri) =>
+        await SendAsync<object?, object?>(uri, HttpMethod.Delete, null);
 
     private async Task<TResponse> SendAsync<TResponse, TRequest>(string uri, HttpMethod method, TRequest? content)
     {
@@ -50,12 +50,19 @@ public class HttpClientService : IHttpClientService
 
         var response = await client.SendAsync(request);
 
-        if (response.IsSuccessStatusCode && response.Content.Headers.ContentLength > 0)
+        if (response.IsSuccessStatusCode)
         {
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var deserializedResponse = _jsonSerializer.Deserialize<TResponse>(responseContent);
+            switch (response.Content.Headers.ContentLength)
+            {
+                case 0:
+                    return default!;
 
-            return deserializedResponse!;
+                default:
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var deserializedResponse = _jsonSerializer.Deserialize<TResponse>(responseContent);
+
+                    return deserializedResponse!;
+            }
         }
 
         throw new HttpResponseException($"Request failed with status code {(int)response.StatusCode}");

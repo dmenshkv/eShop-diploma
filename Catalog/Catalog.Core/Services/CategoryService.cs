@@ -7,23 +7,28 @@ public class CategoryService : BaseService<Category, CategoryDto>, ICategoryServ
     {
     }
 
-    public async Task<AddItemResponse> AddCategoryAsync(AddItemRequest<CategoryDto> addItemRequest)
+    public override async Task<CategoryDto> CreateAsync<CreateCategoryRequest>(CreateCategoryRequest request)
     {
-        return await AddAsync(addItemRequest);
+        return await base.CreateAsync(request);
     }
 
-    public async Task<GetAllItemsResponse<CategoryDto>> GetAllCategoriesAsync()
+    public override async Task<CategoryDto> GetByIdAsync(Guid id)
     {
-        return await GetAllAsync();
+        return await base.GetByIdAsync(id);
     }
 
-    public async Task<RemoveItemResponse> RemoveCategoryAsync(Guid id)
+    public override async Task<GetItemsResponse<CategoryDto>> GetAllAsync()
     {
-        return await RemoveAsync(id);
+        return await base.GetAllAsync();
     }
 
-    public async Task<UpdateItemResponse> UpdateCategoryAsync(Guid id, UpdateItemRequest<CategoryDto> updateItemRequest)
+    public override async Task<CategoryDto> UpdateAsync(Guid id, CategoryDto category)
     {
-        return await UpdateAsync(id, updateItemRequest);
+        return await base.UpdateAsync(id, category);
+    }
+
+    public override async Task DeleteAsync(Guid id)
+    {
+        await base.DeleteAsync(id);
     }
 }

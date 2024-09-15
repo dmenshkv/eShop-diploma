@@ -80,6 +80,15 @@ namespace Catalog.DataAccess.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter expression cannot be null..
+        /// </summary>
+        public static string FilterExpressionNullError {
+            get {
+                return ResourceManager.GetString("FilterExpressionNullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Item with id {0} was not found..
         /// </summary>
         public static string ItemNotFoundError {

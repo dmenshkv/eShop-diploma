@@ -1,12 +1,17 @@
-﻿namespace Marketplace.UI.Core.Services.Interfaces;
+﻿using Marketplace.Models.Requests.Catalog;
+using Marketplace.Models.ViewModels.Catalog;
+
+namespace Marketplace.UI.Core.Services.Interfaces;
 
 public interface IBrandService
 {
-    Task<AddItemResponse> AddBrandAsync(AddItemRequest<BrandViewModel> addItemRequest);
+    Task<BrandViewModel> CreateAsync(CreateBrandRequest request);
 
-    Task<UpdateItemResponse> UpdateBrandAsync(Guid id, UpdateItemRequest<BrandViewModel> updateItemRequest);
+    Task<BrandViewModel> GetAsync(Guid id);
 
-    Task<RemoveItemResponse> RemoveBrandAsync(Guid id);
+    Task<GetItemsResponse<BrandViewModel>> GetAllAsync();
 
-    Task<GetAllItemsResponse<BrandViewModel>> GetAllBrandsAsync();
+    Task<BrandViewModel> UpdateAsync(Guid id, BrandViewModel brand);
+
+    Task DeleteAsync(Guid id);
 }

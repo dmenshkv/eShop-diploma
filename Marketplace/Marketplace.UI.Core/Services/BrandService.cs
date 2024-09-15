@@ -1,4 +1,8 @@
-﻿namespace Marketplace.UI.Core.Services;
+﻿using Marketplace.Models.Requests.Catalog;
+using Marketplace.Models.ViewModels.Catalog;
+using Marketplace.UI.Core.Constants;
+
+namespace Marketplace.UI.Core.Services;
 
 public class BrandService : BaseService<BrandViewModel>, IBrandService
 {
@@ -11,26 +15,31 @@ public class BrandService : BaseService<BrandViewModel>, IBrandService
     {
         _appSettings = appSettings;
 
-        _baseApiPath = $"{_appSettings.Value.CatalogUrl}/brands";
+        _baseApiPath = string.Format(RouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.Brand);
     }
 
-    public async Task<AddItemResponse> AddBrandAsync(AddItemRequest<BrandViewModel> addItemRequest)
+    public async Task<BrandViewModel> CreateAsync(CreateBrandRequest request)
     {
-        return await AddAsync(_baseApiPath, addItemRequest);
+        return await AddAsync(_baseApiPath, request);
     }
 
-    public async Task<GetAllItemsResponse<BrandViewModel>> GetAllBrandsAsync()
+    public async Task<BrandViewModel> GetAsync(Guid id)
+    {
+        return await GetAsync($"{_baseApiPath}/{id}");
+    }
+
+    public async Task<GetItemsResponse<BrandViewModel>> GetAllAsync()
     {
         return await GetAllAsync(_baseApiPath);
     }
 
-    public async Task<RemoveItemResponse> RemoveBrandAsync(Guid id)
+    public async Task<BrandViewModel> UpdateAsync(Guid id, BrandViewModel brand)
     {
-        return await RemoveAsync($"{_baseApiPath}/{id}");
+        return await UpdateAsync($"{_baseApiPath}/{id}", brand);
     }
 
-    public async Task<UpdateItemResponse> UpdateBrandAsync(Guid id, UpdateItemRequest<BrandViewModel> updateItemRequest)
+    public async Task DeleteAsync(Guid id)
     {
-        return await UpdateAsync($"{_baseApiPath}/{id}", updateItemRequest);
+        await RemoveAsync($"{_baseApiPath}/{id}");
     }
 }

@@ -1,11 +1,10 @@
-﻿using Marketplace.Models.ViewModels.Basket;
+﻿using Marketplace.Models.Requests.Basket;
+using Marketplace.Models.ViewModels.Basket;
 
 namespace Marketplace.UI.Pages.Catalog.Basket;
 
 public partial class BasketPage : PageComponentBase
 {
-    private const string BasketRoute = "basket";
-
     [Parameter]
     public CustomerBasketViewModel CustomerBasket { get; set; } = new CustomerBasketViewModel();
 
@@ -32,20 +31,32 @@ public partial class BasketPage : PageComponentBase
         });
     }
 
-    private async Task HandleItemRemoveAsync(Guid itemId)
+    private async Task HandleQuantityChangeAsync()
+    {
+        await UpdateBasketAsync();
+    }
+
+    private async Task HandleItemRemoveAsync(BasketItemViewModel item)
+    {
+        CustomerBasket.Items.Remove(item);
+
+        await UpdateBasketAsync();
+    }
+
+    private async Task UpdateBasketAsync()
     {
         try
         {
-            var response = await BasketService.RemoveFromBasket(AppSettings.Value.UserId, itemId);
-
-            if (response.IsRemoved)
+            var userId = AppSettings.Value.UserId;
+            var response = await BasketService.UpdateBasketAsync(userId, new UpdateBasketRequest()
             {
-                var updatedBasketResponse = await BasketService.GetBasketAsync(AppSettings.Value.UserId);
+                CustomerId = userId,
+                CustomerBasket = CustomerBasket
+            });
 
-                CustomerBasket.Items = updatedBasketResponse.Items;
+            CustomerBasket = response;
 
-                StateHasChanged();
-            }
+            StateHasChanged();
         }
         catch (Exception)
         {

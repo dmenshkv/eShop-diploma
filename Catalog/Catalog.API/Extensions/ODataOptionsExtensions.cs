@@ -24,7 +24,7 @@ public static class ODataOptionsExtensions
             .Filter()
             .OrderBy()
             .Count()
-            .AddRouteComponents("board-games", GetEdmModel());
+            .AddRouteComponents(RouteConstants.BoardGame, GetEdmModel());
     }
 
     private static IEdmModel GetEdmModel()

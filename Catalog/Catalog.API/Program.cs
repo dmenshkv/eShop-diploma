@@ -14,7 +14,7 @@ builder.Services.ConfigureOptions(configuration);
 
 builder.Services.AddControllers().AddOData(options => options.SetupODataOptions(configuration));
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger();
 
 builder.Services.ConfigureCorsForOrigins(configuration);
 

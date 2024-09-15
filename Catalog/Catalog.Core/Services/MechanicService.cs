@@ -7,23 +7,28 @@ public class MechanicService : BaseService<Mechanic, MechanicDto>, IMechanicServ
     {
     }
 
-    public async Task<AddItemResponse> AddMechanicAsync(AddItemRequest<MechanicDto> addItemRequest)
+    public override async Task<MechanicDto> CreateAsync<CreateMechanicRequest>(CreateMechanicRequest request)
     {
-        return await AddAsync(addItemRequest);
+        return await base.CreateAsync(request);
     }
 
-    public async Task<GetAllItemsResponse<MechanicDto>> GetAllMechanicsAsync()
+    public override async Task<MechanicDto> GetByIdAsync(Guid id)
     {
-        return await GetAllAsync();
+        return await base.GetByIdAsync(id);
     }
 
-    public async Task<RemoveItemResponse> RemoveMechanicAsync(Guid id)
+    public override async Task<GetItemsResponse<MechanicDto>> GetAllAsync()
     {
-        return await RemoveAsync(id);
+        return await base.GetAllAsync();
     }
 
-    public async Task<UpdateItemResponse> UpdateMechanicAsync(Guid id, UpdateItemRequest<MechanicDto> updateItemRequest)
+    public override async Task<MechanicDto> UpdateAsync(Guid id, MechanicDto mechanic)
     {
-        return await UpdateAsync(id, updateItemRequest);
+        return await base.UpdateAsync(id, mechanic);
+    }
+
+    public override async Task DeleteAsync(Guid id)
+    {
+        await base.DeleteAsync(id);
     }
 }

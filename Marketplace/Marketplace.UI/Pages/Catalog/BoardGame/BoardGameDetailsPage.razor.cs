@@ -1,12 +1,14 @@
 ﻿using Marketplace.Models.Requests.Basket;
-using Marketplace.Models.Responses;
 using Marketplace.Models.ViewModels.Basket;
+using Marketplace.Models.ViewModels.Catalog;
 
 namespace Marketplace.UI.Pages.Catalog.BoardGame;
 
 public partial class BoardGameDetailsPage : PageComponentBase
 {
     private BoardGameViewModel _boardGame = null!;
+
+    private bool _isItemAdded = false;
 
     private int _quantity = 1;
 
@@ -37,19 +39,19 @@ public partial class BoardGameDetailsPage : PageComponentBase
         await ExecuteSafelyAsync(async () =>
         {
             var uri = GetCurrentPagePath();
-            var response = await HttpClientService.GetAsync<GetBoardGameBySlugResponse>(uri);
+            var response = await HttpClientService.GetAsync<BoardGameViewModel>(uri);
 
-            _boardGame = response.BoardGame;
+            _boardGame = response;
         });
     }
 
-    private async Task AddToBasket()
+    private async Task AddToBasketAsync()
     {
         try
         {
-            await BasketService.AddToBasketAsync(new AddToBasketRequest()
+            var result = await BasketService.AddBasketItemAsync(new AddItemRequest()
             {
-                Id = AppSettings.Value.UserId,
+                CustomerId = AppSettings.Value.UserId,
                 Item = new BasketItemViewModel()
                 {
                     Id = _boardGame.Id,
@@ -59,6 +61,17 @@ public partial class BoardGameDetailsPage : PageComponentBase
                     Quantity = _quantity
                 }
             });
+
+            if (result.IsItemAdded)
+            {
+                _isItemAdded = true;
+
+                StateHasChanged();
+
+                await Task.Delay(2000);
+
+                _isItemAdded = false;
+            }
         }
         catch (Exception)
         {
@@ -68,6 +81,6 @@ public partial class BoardGameDetailsPage : PageComponentBase
 
     private string GetCurrentPagePath()
     {
-        return $"{AppSettings.Value.CatalogUrl}/{NavigationManager.ToBaseRelativePath(NavigationManager.Uri)}";
+        return $"{AppSettings.Value.CatalogUrl}/api/{NavigationManager.ToBaseRelativePath(NavigationManager.Uri)}";
     }
 }

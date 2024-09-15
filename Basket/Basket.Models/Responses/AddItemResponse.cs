@@ -5,5 +5,5 @@ namespace Basket.Models.Responses;
 [ExcludeFromCodeCoverage]
 public class AddItemResponse
 {
-    public bool IsAdded { get; set; }
+    public bool IsItemAdded { get; set; }
 }

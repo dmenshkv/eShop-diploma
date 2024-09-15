@@ -11,26 +11,61 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
     {
     }
 
-    public async Task<IEnumerable<BoardGame>> GetAllBoardGamesAsync()
+    public override async Task<BoardGame> CreateAsync(BoardGame boardGame)
     {
-        var boardGames = await _applicationDbContext.BoardGames
-            .Include(i => i.Brand)
-            .Include(i => i.Categories)
-            .Include(i => i.Mechanics)
-            .AsNoTracking()
-            .ToListAsync();
-
-        return boardGames;
+        return await base.CreateAsync(boardGame);
     }
 
-    public async Task<BoardGame> GetBoardGameBySlugAsync(string slug)
+    public override async Task<BoardGame> UpdateAsync(Guid id, BoardGame boardGame)
+    {
+        if (boardGame == null)
+        {
+            throw new ArgumentNullException(nameof(boardGame), ErrorMessages.UpdateItemNullError);
+        }
+
+        var existingEntity = await _applicationDbContext.BoardGames
+            .Include(bg => bg.Brand)
+            .Include(bg => bg.Categories)
+            .Include(bg => bg.Mechanics)
+            .SingleOrDefaultAsync(e => e.Id == id)
+            ?? throw new EntityNotFoundException(string.Format(ErrorMessages.ItemNotFoundError, id));
+
+        _applicationDbContext.Entry(existingEntity).CurrentValues.SetValues(boardGame);
+
+        if (boardGame.Categories != null)
+        {
+            _applicationDbContext.Entry(existingEntity).Collection(bg => bg.Categories!).CurrentValue = boardGame.Categories;
+        }
+
+        if (boardGame.Mechanics != null)
+        {
+            _applicationDbContext.Entry(existingEntity).Collection(bg => bg.Mechanics!).CurrentValue = boardGame.Mechanics;
+        }
+
+        await _applicationDbContext.SaveChangesAsync();
+
+        return boardGame;
+    }
+
+    public override async Task<IReadOnlyList<BoardGame>> GetAllAsync()
+    {
+        return await _applicationDbContext.BoardGames
+            .Include(bg => bg.Brand)
+            .Include(bg => bg.Categories)
+            .Include(bg => bg.Mechanics)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<BoardGame> GetBySlugAsync(string slug)
     {
         var boardGame = await _applicationDbContext.BoardGames
-            .Where(w => w.Slug == slug)
-            .Include(i => i.Brand)
-            .Include(i => i.Categories)
-            .Include(i => i.Mechanics)
-            .FirstOrDefaultAsync()
+            .Where(bg => bg.Slug == slug)
+            .Include(bg => bg.Brand)
+            .Include(bg => bg.Categories)
+            .Include(bg => bg.Mechanics)
+            .AsNoTracking()
+            .SingleOrDefaultAsync()
             ?? throw new EntityNotFoundException(string.Format(ErrorMessages.BoardGameNotFoundError, slug));
 
         return boardGame;

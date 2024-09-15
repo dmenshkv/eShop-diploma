@@ -123,6 +123,9 @@
   <data name="BoardGameNotFoundError" xml:space="preserve">
     <value>Board game with the slug {0} was not found.</value>
   </data>
+  <data name="FilterExpressionNullError" xml:space="preserve">
+    <value>Filter expression cannot be null.</value>
+  </data>
   <data name="ItemNotFoundError" xml:space="preserve">
     <value>Item with id {0} was not found.</value>
   </data>

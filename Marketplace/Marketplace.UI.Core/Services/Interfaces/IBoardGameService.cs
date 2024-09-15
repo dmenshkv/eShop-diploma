@@ -1,14 +1,17 @@
-﻿namespace Marketplace.UI.Core.Services.Interfaces;
+﻿using Marketplace.Models.Requests.Catalog;
+using Marketplace.Models.ViewModels.Catalog;
+
+namespace Marketplace.UI.Core.Services.Interfaces;
 
 public interface IBoardGameService
 {
-    Task<AddItemResponse> AddBoardGameAsync(AddItemRequest<BoardGameViewModel> addItemRequest);
+    Task<BoardGameViewModel> CreateAsync(CreateBoardGameRequest request);
 
-    Task<UpdateItemResponse> UpdateBoardGameAsync(Guid id, UpdateItemRequest<BoardGameViewModel> updateItemRequest);
+    Task<BoardGameViewModel> GetBySlugAsync(string slug);
 
-    Task<RemoveItemResponse> RemoveBoardGameAsync(Guid id);
+    Task<GetAllBoardGamesResponse> GetAllAsync(ODataQueryParameters? queryParameters = null);
 
-    Task<GetAllBoardGamesResponse> GetAllBoardGamesAsync(ODataQueryParameters? queryParameters = null);
+    Task<BoardGameViewModel> UpdateAsync(Guid id, UpdateBoardGameRequest request);
 
-    Task<GetBoardGameBySlugResponse> GetBoardGameBySlugAsync(string slug);
+    Task DeleteAsync(Guid id);
 }

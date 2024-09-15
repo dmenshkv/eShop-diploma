@@ -1,4 +1,5 @@
-﻿using Basket.Core.Mapping;
+﻿using System.Diagnostics.CodeAnalysis;
+using Basket.Core.Mapping;
 using Basket.Core.Services;
 using Basket.Core.Services.Interfaces;
 using Basket.DataAccess.Extensions;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Basket.Core.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
     public static void AddCoreServices(this IServiceCollection serviceCollection)

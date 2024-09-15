@@ -13,45 +13,43 @@ public abstract class BaseService<TEntity, TModel>
         _baseRepository = baseRepository;
     }
 
-    public virtual async Task<AddItemResponse> AddAsync(AddItemRequest<TModel> addItemRequest)
+    public virtual async Task<TModel> CreateAsync<TRequest>(TRequest request)
+        where TRequest : class
     {
-        var mappedEntity = _mapper.Map<TEntity>(addItemRequest.Item);
-        var entityId = await _baseRepository.AddAsync(mappedEntity);
+        var mappedEntity = _mapper.Map<TEntity>(request);
+        var createdEntity = await _baseRepository.CreateAsync(mappedEntity);
 
-        return new AddItemResponse()
+        return _mapper.Map<TModel>(createdEntity);
+    }
+
+    public virtual async Task<TModel> GetByIdAsync(Guid id)
+    {
+        var entity = await _baseRepository.GetByIdAsync(id);
+
+        return _mapper.Map<TModel>(entity);
+    }
+
+    public virtual async Task<GetItemsResponse<TModel>> GetAllAsync()
+    {
+        var entities = await _baseRepository.GetAllAsync();
+
+        return new GetItemsResponse<TModel>()
         {
-            Id = entityId
+            Count = entities.Count,
+            Value = _mapper.Map<IEnumerable<TModel>>(entities)
         };
     }
 
-    public virtual async Task<GetAllItemsResponse<TModel>> GetAllAsync()
+    public virtual async Task<TModel> UpdateAsync(Guid id, TModel model)
     {
-        var items = await _baseRepository.GetAllAsync();
+        var mappedEntity = _mapper.Map<TEntity>(model);
+        var updatedEntity = await _baseRepository.UpdateAsync(id, mappedEntity);
 
-        return new GetAllItemsResponse<TModel>()
-        {
-            Value = _mapper.Map<IEnumerable<TModel>>(items)
-        };
+        return _mapper.Map<TModel>(updatedEntity);
     }
 
-    public virtual async Task<RemoveItemResponse> RemoveAsync(Guid id)
+    public virtual async Task DeleteAsync(Guid id)
     {
-        var isRemoved = await _baseRepository.RemoveAsync(id);
-
-        return new RemoveItemResponse()
-        {
-            IsRemoved = isRemoved
-        };
-    }
-
-    public virtual async Task<UpdateItemResponse> UpdateAsync(Guid id, UpdateItemRequest<TModel> updateItemRequest)
-    {
-        var mappedEntity = _mapper.Map<TEntity>(updateItemRequest.Item);
-        var isUpdated = await _baseRepository.UpdateAsync(id, mappedEntity);
-
-        return new UpdateItemResponse()
-        {
-            IsUpdated = isUpdated
-        };
+        await _baseRepository.DeleteAsync(id);
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.Responses;
+namespace Marketplace.Models.Responses.Basket;
 
 [ExcludeFromCodeCoverage]
 public class AddItemResponse
 {
-    public Guid Id { get; set; }
+    public bool IsItemAdded { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿.bgc-item-container {
+    position: relative;
     margin-top: 20px;
 }
 
@@ -41,4 +42,14 @@
     font-size: 18px;
     font-weight: 600;
     margin-right: 10px;
+}
+
+.bgc-popup-message {
+    background-color: #f0f0f0;
+    position: absolute;
+    padding: 10px 20px;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    bottom: 4rem;
+    right: 20px;
 }

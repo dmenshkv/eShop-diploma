@@ -1,12 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.ViewModels;
+namespace Marketplace.Models.Requests.Catalog;
 
 [ExcludeFromCodeCoverage]
-public class BrandViewModel
+public class CreateBrandRequest
 {
-    public Guid Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public string Country { get; set; } = null!;

@@ -62,10 +62,16 @@ else
                         <input @bind="_quantity" min="1" max="@_boardGame.AvailableStock" type="number" aria-label="Quantity" class="bgc-item-quantity">
                     </div>
                     <div>
-                        <button type="submit" class="bgc-button" @onclick="AddToBasket">
+                        <button type="submit" class="bgc-button" @onclick="AddToBasketAsync">
                             ADD TO CART
                         </button>
                     </div>
+                    @if (_isItemAdded)
+                    {
+                        <div class="bgc-popup-message">
+                            Item successfully added to the cart!
+                        </div>
+                    }
                 </div>
             </div>
         </div>

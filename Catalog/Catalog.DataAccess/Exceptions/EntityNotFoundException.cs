@@ -1,5 +1,6 @@
 ﻿namespace Catalog.DataAccess.Exceptions;
 
+[ExcludeFromCodeCoverage]
 public class EntityNotFoundException : Exception
 {
     public EntityNotFoundException(string message)

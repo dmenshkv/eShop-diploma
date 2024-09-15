@@ -1,5 +1,7 @@
 ﻿using Marketplace.Models.Requests.Basket;
 using Marketplace.Models.Responses.Basket;
+using Marketplace.Models.ViewModels.Basket;
+using Marketplace.UI.Core.Constants;
 
 namespace Marketplace.UI.Core.Services;
 
@@ -15,26 +17,21 @@ public class BasketService : IBasketService
         _appSettings = appSettings;
         _httpClientService = httpClientService;
 
-        _baseApiPath = $"{_appSettings.Value.BasketUrl}/basket";
+        _baseApiPath = string.Format(RouteTemplates.ApiFormat, _appSettings.Value.BasketUrl, ApiEndpoints.Basket);
     }
 
-    public async Task<GetBasketResponse> GetBasketAsync(Guid id)
+    public async Task<AddItemResponse> AddBasketItemAsync(AddItemRequest request)
     {
-        return await _httpClientService.GetAsync<GetBasketResponse>($"{_baseApiPath}/{id}");
+        return await _httpClientService.PostAsync<AddItemResponse, AddItemRequest>(_baseApiPath, request);
     }
 
-    public async Task<AddToBasketResponse> AddToBasketAsync(AddToBasketRequest addItemRequest)
+    public async Task<CustomerBasketViewModel> GetBasketAsync(Guid id)
     {
-        return await _httpClientService.PostAsync<AddToBasketResponse, AddToBasketRequest>(_baseApiPath, addItemRequest);
+        return await _httpClientService.GetAsync<CustomerBasketViewModel>($"{_baseApiPath}/{id}");
     }
 
-    public async Task<RemoveItemResponse> RemoveFromBasket(Guid id, Guid itemId)
+    public async Task<CustomerBasketViewModel> UpdateBasketAsync(Guid id, UpdateBasketRequest request)
     {
-        return await _httpClientService.DeleteAsync<RemoveItemResponse>($"{_baseApiPath}/{id}/{itemId}");
-    }
-
-    public async Task<UpdateItemResponse> UpdateQuantities(Guid id, UpdateQuantityRequest updateQuantityRequest)
-    {
-        return await _httpClientService.PutAsync<UpdateItemResponse, UpdateQuantityRequest>($"{_baseApiPath}/{id}", updateQuantityRequest);
+        return await _httpClientService.PutAsync<CustomerBasketViewModel, UpdateBasketRequest>($"{_baseApiPath}/{id}", request);
     }
 }

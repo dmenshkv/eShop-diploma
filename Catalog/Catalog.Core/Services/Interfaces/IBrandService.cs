@@ -2,11 +2,14 @@
 
 public interface IBrandService
 {
-    Task<AddItemResponse> AddBrandAsync(AddItemRequest<BrandDto> addItemRequest);
+    Task<BrandDto> CreateAsync<CreateBrandRequest>(CreateBrandRequest request)
+        where CreateBrandRequest : class;
 
-    Task<UpdateItemResponse> UpdateBrandAsync(Guid id, UpdateItemRequest<BrandDto> updateItemRequest);
+    Task<BrandDto> GetByIdAsync(Guid id);
 
-    Task<RemoveItemResponse> RemoveBrandAsync(Guid id);
+    Task<GetItemsResponse<BrandDto>> GetAllAsync();
 
-    Task<GetAllItemsResponse<BrandDto>> GetAllBrandsAsync();
+    Task<BrandDto> UpdateAsync(Guid id, BrandDto brand);
+
+    Task DeleteAsync(Guid id);
 }

@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.ViewModels;
+namespace Catalog.Models.Requests;
 
 [ExcludeFromCodeCoverage]
-public class MechanicViewModel
+public class CreateBrandRequest
 {
-    public Guid Id { get; set; }
-
     public string Name { get; set; } = null!;
+
+    public string Country { get; set; } = null!;
 }

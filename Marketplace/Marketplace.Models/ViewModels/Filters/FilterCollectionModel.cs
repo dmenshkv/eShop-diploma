@@ -1,7 +1,7 @@
 ﻿using Marketplace.Models.Enums;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models;
+namespace Marketplace.Models.ViewModels.Filters;
 
 [ExcludeFromCodeCoverage]
 public class FilterCollectionModel

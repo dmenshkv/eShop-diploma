@@ -1,6 +1,5 @@
 ﻿using Catalog.Core.Mapping;
 using Catalog.Core.Services;
-using Catalog.Core.Services.Interfaces;
 using Catalog.DataAccess.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 

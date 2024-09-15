@@ -1,4 +1,8 @@
-﻿namespace Marketplace.UI.Core.Services;
+﻿using Marketplace.Models.Requests.Catalog;
+using Marketplace.Models.ViewModels.Catalog;
+using Marketplace.UI.Core.Constants;
+
+namespace Marketplace.UI.Core.Services;
 
 public class BoardGameService : BaseService<BoardGameViewModel>, IBoardGameService
 {
@@ -16,40 +20,36 @@ public class BoardGameService : BaseService<BoardGameViewModel>, IBoardGameServi
         _appSettings = appSettings;
         _urlBuilderService = uriBuilderService;
 
-        _baseApiPath = $"{_appSettings.Value.CatalogUrl}/board-games";
+        _baseApiPath = string.Format(RouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.BoardGame);
     }
 
-    public async Task<AddItemResponse> AddBoardGameAsync(AddItemRequest<BoardGameViewModel> addItemRequest)
+    public async Task<BoardGameViewModel> CreateAsync(CreateBoardGameRequest request)
     {
-        return await AddAsync(_baseApiPath, addItemRequest);
+        return await AddAsync(_baseApiPath, request);
     }
 
-    public async Task<GetAllBoardGamesResponse> GetAllBoardGamesAsync(ODataQueryParameters? queryParameters = null)
+    public async Task<BoardGameViewModel> GetBySlugAsync(string slug)
+    {
+        return await _httpClientService.GetAsync<BoardGameViewModel>($"{_baseApiPath}/{slug}");
+    }
+
+    public async Task<GetAllBoardGamesResponse> GetAllAsync(ODataQueryParameters? queryParameters = null)
     {
         var baseODataUri = $"{_baseApiPath}/edm";
         var uri = queryParameters != null
             ? _urlBuilderService.BuildGetBoardGamesUri(baseODataUri, queryParameters)
             : _urlBuilderService.AddDefaultBoardGamesQueryParameters(baseODataUri);
 
-        var result = await _httpClientService.GetAsync<GetAllBoardGamesResponse>(uri);
-
-        return result;
+        return await _httpClientService.GetAsync<GetAllBoardGamesResponse>(uri);
     }
 
-    public async Task<GetBoardGameBySlugResponse> GetBoardGameBySlugAsync(string slug)
+    public async Task<BoardGameViewModel> UpdateAsync(Guid id, UpdateBoardGameRequest request)
     {
-        var result = await _httpClientService.GetAsync<GetBoardGameBySlugResponse>($"{_baseApiPath}/{slug}");
-
-        return result;
+        return await UpdateAsync($"{_baseApiPath}/{id}", request);
     }
 
-    public async Task<RemoveItemResponse> RemoveBoardGameAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        return await RemoveAsync($"{_baseApiPath}/{id}");
-    }
-
-    public async Task<UpdateItemResponse> UpdateBoardGameAsync(Guid id, UpdateItemRequest<BoardGameViewModel> updateItemRequest)
-    {
-        return await UpdateAsync($"{_baseApiPath}/{id}", updateItemRequest);
+        await RemoveAsync($"{_baseApiPath}/{id}");
     }
 }

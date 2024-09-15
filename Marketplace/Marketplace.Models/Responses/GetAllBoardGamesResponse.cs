@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Marketplace.Models.ViewModels;
+using Marketplace.Models.ViewModels.Catalog;
 using Newtonsoft.Json;
 
 namespace Marketplace.Models.Responses;

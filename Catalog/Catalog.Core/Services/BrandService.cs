@@ -7,23 +7,28 @@ public class BrandService : BaseService<Brand, BrandDto>, IBrandService
     {
     }
 
-    public async Task<AddItemResponse> AddBrandAsync(AddItemRequest<BrandDto> addItemRequest)
+    public override async Task<BrandDto> CreateAsync<CreateBrandRequest>(CreateBrandRequest request)
     {
-        return await AddAsync(addItemRequest);
+        return await base.CreateAsync(request);
     }
 
-    public async Task<GetAllItemsResponse<BrandDto>> GetAllBrandsAsync()
+    public override async Task<BrandDto> GetByIdAsync(Guid id)
     {
-        return await GetAllAsync();
+        return await base.GetByIdAsync(id);
     }
 
-    public async Task<RemoveItemResponse> RemoveBrandAsync(Guid id)
+    public override async Task<BrandDto> UpdateAsync(Guid id, BrandDto brand)
     {
-        return await RemoveAsync(id);
+        return await base.UpdateAsync(id, brand);
     }
 
-    public async Task<UpdateItemResponse> UpdateBrandAsync(Guid id, UpdateItemRequest<BrandDto> updateItemRequest)
+    public override async Task<GetItemsResponse<BrandDto>> GetAllAsync()
     {
-        return await UpdateAsync(id, updateItemRequest);
+        return await base.GetAllAsync();
+    }
+
+    public override async Task DeleteAsync(Guid id)
+    {
+        await base.DeleteAsync(id);
     }
 }

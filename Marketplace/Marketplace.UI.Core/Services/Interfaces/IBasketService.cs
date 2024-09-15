@@ -1,15 +1,14 @@
 ﻿using Marketplace.Models.Requests.Basket;
 using Marketplace.Models.Responses.Basket;
+using Marketplace.Models.ViewModels.Basket;
 
 namespace Marketplace.UI.Core.Services.Interfaces;
 
 public interface IBasketService
 {
-    public Task<GetBasketResponse> GetBasketAsync(Guid id);
+    public Task<AddItemResponse> AddBasketItemAsync(AddItemRequest request);
 
-    public Task<AddToBasketResponse> AddToBasketAsync(AddToBasketRequest addItemRequest);
+    public Task<CustomerBasketViewModel> GetBasketAsync(Guid id);
 
-    public Task<RemoveItemResponse> RemoveFromBasket(Guid id, Guid itemId);
-
-    public Task<UpdateItemResponse> UpdateQuantities(Guid id, UpdateQuantityRequest updateQuantityRequest);
+    public Task<CustomerBasketViewModel> UpdateBasketAsync(Guid id, UpdateBasketRequest request);
 }

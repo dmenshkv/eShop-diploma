@@ -2,13 +2,13 @@
 
 public interface IBoardGameService
 {
-    Task<AddItemResponse> AddBoardGameAsync(AddItemRequest<BoardGameDto> addItemRequest);
+    Task<BoardGameDto> CreateAsync(CreateBoardGameRequest request);
 
-    Task<UpdateItemResponse> UpdateBoardGameAsync(Guid id, UpdateItemRequest<BoardGameDto> updateItemRequest);
+    Task<BoardGameDto> GetBySlugAsync(string slug);
 
-    Task<RemoveItemResponse> RemoveBoardGameAsync(Guid id);
+    Task<IEnumerable<BoardGameDto>> GetAllAsync();
 
-    Task<IEnumerable<BoardGameDto>> GetAllBoardGamesAsync();
+    Task<BoardGameDto> UpdateAsync(Guid id, UpdateBoardGameRequest request);
 
-    Task<GetBoardGameBySlugResponse> GetBoardGameBySlugAsync(string slug);
+    Task DeleteAsync(Guid id);
 }

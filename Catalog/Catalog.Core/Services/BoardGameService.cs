@@ -2,46 +2,69 @@
 
 public class BoardGameService : BaseService<BoardGame, BoardGameDto>, IBoardGameService
 {
+    private readonly IBaseRepository<Mechanic> _mechanicRepository;
+    private readonly IBaseRepository<Category> _categoryRepository;
     private readonly IBoardGameRepository _boardGameRepository;
 
     public BoardGameService(
         IMapper mapper,
         IBaseRepository<BoardGame> baseRepository,
+        IBaseRepository<Mechanic> mechanicRepository,
+        IBaseRepository<Category> categoryRepository,
         IBoardGameRepository boardGameRepository)
         : base(mapper, baseRepository)
     {
+        _mechanicRepository = mechanicRepository;
+        _categoryRepository = categoryRepository;
         _boardGameRepository = boardGameRepository;
     }
 
-    public async Task<AddItemResponse> AddBoardGameAsync(AddItemRequest<BoardGameDto> addItemRequest)
+    public override async Task DeleteAsync(Guid id)
     {
-        return await AddAsync(addItemRequest);
+        await base.DeleteAsync(id);
     }
 
-    public async Task<IEnumerable<BoardGameDto>> GetAllBoardGamesAsync()
+    public async Task<BoardGameDto> CreateAsync(CreateBoardGameRequest request)
     {
-        var boardGames = await _boardGameRepository.GetAllBoardGamesAsync();
+        var mappedBoardGame = _mapper.Map<BoardGame>(request);
+
+        var mechanics = await _mechanicRepository.FilterAsync(m => request.MechanicIds.Contains(m.Id), false);
+        var categories = await _categoryRepository.FilterAsync(c => request.CategoryIds.Contains(c.Id), false);
+
+        mappedBoardGame.Mechanics = mechanics.ToList();
+        mappedBoardGame.Categories = categories.ToList();
+
+        var boardGame = await _boardGameRepository.CreateAsync(mappedBoardGame);
+
+        return _mapper.Map<BoardGameDto>(boardGame);
+    }
+
+    public async Task<BoardGameDto> GetBySlugAsync(string slug)
+    {
+        var boardGame = await _boardGameRepository.GetBySlugAsync(slug);
+
+        return _mapper.Map<BoardGameDto>(boardGame);
+    }
+
+    public new async Task<IEnumerable<BoardGameDto>> GetAllAsync()
+    {
+        var boardGames = await _boardGameRepository.GetAllAsync();
 
         return _mapper.Map<IEnumerable<BoardGameDto>>(boardGames);
     }
 
-    public async Task<GetBoardGameBySlugResponse> GetBoardGameBySlugAsync(string slug)
+    public async Task<BoardGameDto> UpdateAsync(Guid id, UpdateBoardGameRequest request)
     {
-        var boardGame = await _boardGameRepository.GetBoardGameBySlugAsync(slug);
+        var mappedBoardGame = _mapper.Map<BoardGame>(request);
 
-        return new GetBoardGameBySlugResponse()
-        {
-            BoardGame = _mapper.Map<BoardGameDto>(boardGame)
-        };
-    }
+        var mechanics = await _mechanicRepository.FilterAsync(m => request.MechanicIds.Contains(m.Id), false);
+        var categories = await _categoryRepository.FilterAsync(c => request.CategoryIds.Contains(c.Id), false);
 
-    public async Task<RemoveItemResponse> RemoveBoardGameAsync(Guid id)
-    {
-        return await RemoveAsync(id);
-    }
+        mappedBoardGame.Mechanics = mechanics.ToList();
+        mappedBoardGame.Categories = categories.ToList();
 
-    public async Task<UpdateItemResponse> UpdateBoardGameAsync(Guid id, UpdateItemRequest<BoardGameDto> updateItemRequest)
-    {
-        return await UpdateAsync(id, updateItemRequest);
+        var boardGame = await _boardGameRepository.UpdateAsync(id, mappedBoardGame);
+
+        return _mapper.Map<BoardGameDto>(boardGame);
     }
 }

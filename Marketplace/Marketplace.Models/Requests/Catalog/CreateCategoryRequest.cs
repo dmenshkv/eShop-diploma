@@ -1,11 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Marketplace.Models.ViewModels;
+namespace Marketplace.Models.Requests.Catalog;
 
 [ExcludeFromCodeCoverage]
-public class CategoryViewModel
+public class CreateCategoryRequest
 {
-    public Guid Id { get; set; }
-
     public string Name { get; set; } = null!;
 }

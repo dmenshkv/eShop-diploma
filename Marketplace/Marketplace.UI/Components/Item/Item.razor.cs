@@ -1,4 +1,5 @@
-﻿using Marketplace.UI.Constants;
+﻿using Marketplace.Models.ViewModels.Catalog;
+using Marketplace.UI.Constants;
 
 namespace Marketplace.UI.Components.Item;
 

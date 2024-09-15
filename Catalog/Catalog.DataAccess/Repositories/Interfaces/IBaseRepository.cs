@@ -1,13 +1,19 @@
-﻿namespace Catalog.DataAccess.Repositories.Interfaces;
+﻿using System.Linq.Expressions;
+
+namespace Catalog.DataAccess.Repositories.Interfaces;
 
 public interface IBaseRepository<TEntity>
     where TEntity : BaseEntity
 {
-    Task<Guid> AddAsync(TEntity item);
+    Task<TEntity> CreateAsync(TEntity entity);
 
-    Task<bool> UpdateAsync(Guid id, TEntity item);
+    Task<TEntity> GetByIdAsync(Guid id);
 
-    Task<bool> RemoveAsync(Guid id);
+    Task<IReadOnlyList<TEntity>> GetAllAsync();
 
-    Task<IEnumerable<TEntity>> GetAllAsync();
+    Task<IEnumerable<TEntity>> FilterAsync(Expression<Func<TEntity, bool>> expression, bool asNoTracking = true);
+
+    Task<TEntity> UpdateAsync(Guid id, TEntity entity);
+
+    Task DeleteAsync(Guid id);
 }

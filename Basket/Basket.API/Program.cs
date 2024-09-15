@@ -1,4 +1,3 @@
-using Basket.API.Constants;
 using Basket.API.Extensions;
 using Basket.Core.Extensions;
 
@@ -15,7 +14,7 @@ builder.Services.AddCoreServices();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger();
 
 builder.Services.ConfigureCorsForOrigins(configuration);
 

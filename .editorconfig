@@ -38,7 +38,7 @@ csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimenta
 csharp_style_conditional_delegate_call = true:suggestion
 dotnet_diagnostic.SA1202.severity = error
 dotnet_diagnostic.SA1508.severity = error
-dotnet_diagnostic.SA1600.severity = silent
+dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1601.severity = silent
 dotnet_diagnostic.SA1602.severity = silent
 dotnet_diagnostic.SA1604.severity = silent
@@ -65,7 +65,7 @@ dotnet_diagnostic.SA1309.severity = silent
 dotnet_diagnostic.SA1302.severity = error
 dotnet_diagnostic.SA1300.severity = silent
 dotnet_diagnostic.SA1303.severity = error
-dotnet_diagnostic.SA1314.severity = error
+dotnet_diagnostic.SA1314.severity = suggestion
 dotnet_diagnostic.SX1309.severity = silent
 dotnet_diagnostic.SA1101.severity = silent
 dotnet_diagnostic.SX1101.severity = error
@@ -93,6 +93,8 @@ csharp_style_prefer_extended_property_pattern = true:error
 csharp_style_var_for_built_in_types = true:error
 csharp_style_var_when_type_is_apparent = true:error
 csharp_style_var_elsewhere = true:suggestion
+dotnet_diagnostic.SA1124.severity = suggestion
+dotnet_diagnostic.SA1123.severity = suggestion
 
 [*.{cs,vb}]
 #### Naming styles ####
@@ -152,8 +154,8 @@ tab_width = 4
 indent_size = 4
 end_of_line = crlf
 dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
-dotnet_style_prefer_conditional_expression_over_return = true:error
-dotnet_style_prefer_conditional_expression_over_assignment = true:error
+dotnet_style_prefer_conditional_expression_over_return = true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
 dotnet_style_prefer_inferred_tuple_names = true:warning
 dotnet_style_explicit_tuple_names = true:warning
 dotnet_style_prefer_compound_assignment = true:suggestion

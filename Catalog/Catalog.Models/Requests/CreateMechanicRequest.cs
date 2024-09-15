@@ -3,8 +3,7 @@
 namespace Catalog.Models.Requests;
 
 [ExcludeFromCodeCoverage]
-public class UpdateItemRequest<TItem>
-    where TItem : class
+public class CreateMechanicRequest
 {
-    public TItem Item { get; init; } = null!;
+    public string Name { get; set; } = null!;
 }

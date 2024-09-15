@@ -1,4 +1,5 @@
 ﻿using Marketplace.Models.Constants;
+using Marketplace.Models.ViewModels.Catalog;
 using Marketplace.Models.ViewModels.Filters;
 
 namespace Marketplace.UI.Pages.Catalog;
@@ -81,7 +82,7 @@ public partial class CatalogHomePage : PageComponentBase
 
         ChangePage();
 
-        var items = await BoardGameService.GetAllBoardGamesAsync(_queryParameters);
+        var items = await BoardGameService.GetAllAsync(_queryParameters);
 
         AreThereItems = items.Count > 0;
 
@@ -105,9 +106,9 @@ public partial class CatalogHomePage : PageComponentBase
 
     private async Task<FilteringOptionsViewModel> GetFilteringOptions()
     {
-        var getAllBrandsTask = BrandService.GetAllBrandsAsync();
-        var getAllCategoriesTask = CategoryService.GetAllCategoriesAsync();
-        var getAllMechanicsTask = MechanicService.GetAllMechanicsAsync();
+        var getAllBrandsTask = BrandService.GetAllAsync();
+        var getAllCategoriesTask = CategoryService.GetAllAsync();
+        var getAllMechanicsTask = MechanicService.GetAllAsync();
 
         await Task.WhenAll(getAllBrandsTask, getAllCategoriesTask, getAllMechanicsTask);
 

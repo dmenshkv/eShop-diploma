@@ -2,7 +2,7 @@
 
 public class CustomerBasketViewModel
 {
-    public IEnumerable<BasketItemViewModel> Items { get; set; } = new List<BasketItemViewModel>();
+    public IList<BasketItemViewModel> Items { get; set; } = new List<BasketItemViewModel>();
 
     public decimal CalculateTotal()
     {

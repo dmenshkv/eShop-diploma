@@ -4,9 +4,9 @@ public interface IHttpClientService
 {
     Task<TResponse> PostAsync<TResponse, TRequest>(string uri, TRequest body);
 
+    Task<TResponse> GetAsync<TResponse>(string uri);
+
     Task<TResponse> PutAsync<TResponse, TRequest>(string uri, TRequest body);
 
-    Task<TResponse> DeleteAsync<TResponse>(string uri);
-
-    Task<TResponse> GetAsync<TResponse>(string uri);
+    Task DeleteAsync(string uri);
 }

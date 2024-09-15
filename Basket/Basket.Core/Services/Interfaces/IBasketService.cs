@@ -5,11 +5,9 @@ namespace Basket.Core.Services.Interfaces;
 
 public interface IBasketService
 {
+    Task<AddItemResponse> AddBasketItemAsync(AddItemRequest request);
+
     Task<CustomerBasketDto> GetBasketAsync(Guid id);
 
-    Task<AddItemResponse> AddToBasketAsync(AddItemRequest addItemRequest);
-
-    Task<RemoveItemResponse> RemoveFromBasketAsync(Guid id, Guid itemId);
-
-    Task<UpdateQuantityResponse> UpdateQuantityAsync(UpdateQuantityRequest updateQuantityRequest);
+    Task<CustomerBasketDto> UpdateBasketAsync(UpdateBasketRequest request);
 }
