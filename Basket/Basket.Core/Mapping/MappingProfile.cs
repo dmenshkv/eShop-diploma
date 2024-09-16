@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Basket.Entites.Common;
+using Basket.DataAccess.Entities.Common;
 
 namespace Basket.Core.Mapping;
 

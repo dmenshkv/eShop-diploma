@@ -16,6 +16,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basket.Core\Basket.Core.csproj" />
-    <ProjectReference Include="..\Basket.Models\Basket.Models.csproj" />
   </ItemGroup>
 </Project>

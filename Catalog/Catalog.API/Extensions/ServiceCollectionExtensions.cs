@@ -1,5 +1,5 @@
 ﻿using Catalog.Core.Extensions;
-using Catalog.Models.Configurations;
+using Catalog.Core.Models.Configurations;
 using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
 using Microsoft.OpenApi.Models;

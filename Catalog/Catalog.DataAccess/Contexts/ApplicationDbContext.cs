@@ -1,4 +1,4 @@
-﻿using Catalog.Entites.EntityConfigurations;
+﻿using Catalog.DataAccess.Entities.EntityConfigurations;
 
 namespace Catalog.DataAccess.Contexts;
 

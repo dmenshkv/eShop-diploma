@@ -1,7 +1,6 @@
-﻿using Marketplace.Models.Requests.Basket;
-using Marketplace.Models.Responses.Basket;
-using Marketplace.Models.ViewModels.Basket;
-using Marketplace.UI.Core.Constants;
+﻿using Marketplace.UI.Core.Models.Requests.Basket;
+using Marketplace.UI.Core.Models.Responses.Basket;
+using Marketplace.UI.Core.Models.ViewModels.Basket;
 
 namespace Marketplace.UI.Core.Services;
 
@@ -17,7 +16,7 @@ public class BasketService : IBasketService
         _appSettings = appSettings;
         _httpClientService = httpClientService;
 
-        _baseApiPath = string.Format(RouteTemplates.ApiFormat, _appSettings.Value.BasketUrl, ApiEndpoints.Basket);
+        _baseApiPath = string.Format(ApiRouteTemplates.ApiFormat, _appSettings.Value.BasketUrl, ApiEndpoints.Basket);
     }
 
     public async Task<AddItemResponse> AddBasketItemAsync(AddItemRequest request)

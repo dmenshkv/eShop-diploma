@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Basket.DataAccess.Repositories;
+﻿using Basket.DataAccess.Repositories;
 using Basket.DataAccess.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;

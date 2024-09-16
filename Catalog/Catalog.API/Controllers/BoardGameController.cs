@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.OData.Query;
+﻿using Catalog.Core.Models.DTOs;
+using Catalog.Core.Models.Requests;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 
 namespace Catalog.API.Controllers;

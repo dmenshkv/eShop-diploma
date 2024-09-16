@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Marketplace.UI.Core.Constants;
+﻿namespace Marketplace.UI.Core.Constants;
 
 [ExcludeFromCodeCoverage]
 public static class ApiEndpoints

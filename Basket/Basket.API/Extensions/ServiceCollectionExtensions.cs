@@ -1,5 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
-using Basket.Models.Configurations;
+using Basket.Core.Models.Configurations;
+using Basket.Core.Constants;
 
 namespace Basket.API.Extensions;
 

@@ -1,6 +1,6 @@
 ﻿using Basket.DataAccess.Constants;
+using Basket.DataAccess.Entities.Common;
 using Basket.DataAccess.Repositories.Interfaces;
-using Basket.Entites.Common;
 using Infrastructure.Services.Interfaces;
 using StackExchange.Redis;
 

@@ -1,9 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Basket.Core.Constants;
 using Basket.Core.Mapping;
+using Basket.Core.Models.Configurations;
 using Basket.Core.Services;
 using Basket.Core.Services.Interfaces;
 using Basket.DataAccess.Extensions;
-using Basket.Models.Configurations;
 using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -26,9 +26,9 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddRepositories();
     }
 
-    public static void ConfigureRedis(this IServiceCollection serviceCollection, IConfigurationSection configuration)
+    public static void ConfigureRedis(this IServiceCollection serviceCollection, ConfigurationManager configuration)
     {
-        var redisConfig = configuration.Get<RedisConfig>();
+        var redisConfig = configuration.GetSection(ConfigurationSectionsNames.Redis).Get<RedisConfig>();
 
         serviceCollection.AddRedisCache(redisConfig!.Host);
     }

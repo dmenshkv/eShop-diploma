@@ -1,8 +1,4 @@
-﻿using Marketplace.Models.Requests.Catalog;
-using Marketplace.Models.ViewModels.Catalog;
-using Marketplace.UI.Core.Constants;
-
-namespace Marketplace.UI.Core.Services;
+﻿namespace Marketplace.UI.Core.Services;
 
 public class CategoryService : BaseService<CategoryViewModel>, ICategoryService
 {
@@ -15,7 +11,7 @@ public class CategoryService : BaseService<CategoryViewModel>, ICategoryService
     {
         _appSettings = appSettings;
 
-        _baseApiPath = _baseApiPath = string.Format(RouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.Category);
+        _baseApiPath = _baseApiPath = string.Format(ApiRouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.Category);
     }
 
     public async Task<CategoryViewModel> CreateAsync(CreateCategoryRequest request)

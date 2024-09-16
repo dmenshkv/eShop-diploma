@@ -1,8 +1,9 @@
 using System.Net;
+using Basket.API.Constants;
+using Basket.Core.Models.DTOs;
+using Basket.Core.Models.Requests;
+using Basket.Core.Models.Responses;
 using Basket.Core.Services.Interfaces;
-using Basket.Models.DTOs;
-using Basket.Models.Requests;
-using Basket.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.API.Controllers;

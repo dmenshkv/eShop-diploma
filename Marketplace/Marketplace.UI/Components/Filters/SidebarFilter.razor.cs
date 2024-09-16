@@ -1,5 +1,5 @@
-﻿using Marketplace.Models.Enums;
-using Marketplace.Models.ViewModels.Filters;
+﻿using Marketplace.UI.Core.Models.Enums;
+using Marketplace.UI.Core.Models.ViewModels.Filters;
 
 namespace Marketplace.UI.Components.Filters;
 

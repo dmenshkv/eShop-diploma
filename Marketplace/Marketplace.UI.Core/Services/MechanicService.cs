@@ -1,8 +1,4 @@
-﻿using Marketplace.Models.Requests.Catalog;
-using Marketplace.Models.ViewModels.Catalog;
-using Marketplace.UI.Core.Constants;
-
-namespace Marketplace.UI.Core.Services;
+﻿namespace Marketplace.UI.Core.Services;
 
 public class MechanicService : BaseService<MechanicViewModel>, IMechanicService
 {
@@ -15,7 +11,7 @@ public class MechanicService : BaseService<MechanicViewModel>, IMechanicService
     {
         _appSettings = appSettings;
 
-        _baseApiPath = string.Format(RouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.Mechanic);
+        _baseApiPath = string.Format(ApiRouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.Mechanic);
     }
 
     public async Task<MechanicViewModel> CreateAsync(CreateMechanicRequest request)

@@ -1,5 +1,5 @@
-﻿using Basket.Models.Requests;
-using Basket.Models.Responses;
+﻿using Basket.Core.Models.Requests;
+using Basket.Core.Models.Responses;
 
 namespace Basket.Core.Services.Interfaces;
 

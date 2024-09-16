@@ -1,4 +1,5 @@
-﻿using Catalog.Models.Configurations;
+﻿using Catalog.Core.Models.Configurations;
+using Catalog.Core.Models.DTOs;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;

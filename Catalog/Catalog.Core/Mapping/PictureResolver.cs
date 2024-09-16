@@ -1,4 +1,4 @@
-﻿using Catalog.Models.Configurations;
+﻿using Catalog.Core.Models.Configurations;
 using Microsoft.Extensions.Options;
 
 namespace Catalog.Core.Mapping;

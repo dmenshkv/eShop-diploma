@@ -1,4 +1,4 @@
-﻿using Basket.Entites.Common;
+﻿using Basket.DataAccess.Entities.Common;
 
 namespace Basket.DataAccess.Repositories.Interfaces;
 

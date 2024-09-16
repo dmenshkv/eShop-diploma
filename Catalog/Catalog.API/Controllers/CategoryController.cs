@@ -1,4 +1,8 @@
-﻿namespace Catalog.API.Controllers;
+﻿using Catalog.Core.Models.DTOs;
+using Catalog.Core.Models.Requests;
+using Catalog.Core.Models.Responses;
+
+namespace Catalog.API.Controllers;
 
 [ApiController]
 [Route(RouteConstants.Category)]

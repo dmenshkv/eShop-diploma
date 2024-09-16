@@ -14,7 +14,6 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Marketplace.Models\Marketplace.Models.csproj" />
     <ProjectReference Include="..\Marketplace.UI.Core\Marketplace.UI.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

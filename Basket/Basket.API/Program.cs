@@ -1,13 +1,12 @@
 using Basket.API.Extensions;
+using Basket.Core.Constants;
 using Basket.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-var redisConfigurationSection = configuration.GetSection(ConfigurationSectionsNames.Redis);
-
-builder.Services.ConfigureRedis(redisConfigurationSection);
+builder.Services.ConfigureRedis(configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddRedisRepositories();
 builder.Services.AddCoreServices();

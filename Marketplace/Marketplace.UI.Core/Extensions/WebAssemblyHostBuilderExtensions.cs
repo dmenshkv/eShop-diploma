@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Infrastructure.Services;
+﻿using Infrastructure.Services;
 using Infrastructure.Services.Interfaces;
 using Marketplace.UI.Core.Services;
 using Microsoft.Extensions.Configuration;

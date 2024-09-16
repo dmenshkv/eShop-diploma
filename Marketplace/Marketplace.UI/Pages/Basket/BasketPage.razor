@@ -1,0 +1,82 @@
+﻿@using Marketplace.UI.Pages
+
+@inherits PageComponentBase;
+
+@attribute [Route(PageRouteConstants.Basket)]
+
+<body>
+    @if (IsLoading)
+    {
+        @:Loading basket..
+    }
+    else if (CustomerBasket is null || CustomerBasket?.Items is null)
+    {
+        <div class="error-message">
+            An error occurred while loading board game
+        </div>
+    }
+    else if (CustomerBasket.Items.Count == 0)
+    {
+        <div class="bgc-empty-message">
+            Your basket is currently empty.
+        </div>
+    }
+    else
+    {
+        <div class="bgc-basket-container">
+            <div class="row">
+                <div class="col-5">Product</div>
+                <div class="col-2">Price</div>
+                <div class="col-2">Quantity</div>
+                <div class="col-2">Total</div>
+            </div>
+
+            @foreach (var item in CustomerBasket.Items)
+            {
+                <div class="bgc-basket-items">
+                    <div class="col-2">
+                        <img src="@item.PictureUrl" class="bgc-image" />
+                    </div>
+                    <div class="col-3">
+                        <a href="/" class="bgc-basket-title">
+                            @item.Name
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <div class="bgc-basket-price">
+                            @item.Price
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <input @bind-value="item.Quantity" @bind-value:event="onchange" @bind-value:after="HandleQuantityChangeAsync" min="1" type="number" aria-label="Quantity" class="bgc-item-quantity">
+                    </div>
+                    <div class="col-2">
+                        <div class="bgc-basket-price">
+                            @CalculateTotalSingleItemPrice(item.Price, item.Quantity)
+                        </div>
+                    </div>
+                    <div>
+                        <img src="images/remove.png" @onclick="@(() => HandleItemRemoveAsync(item))" class="bgc-basket-remove" />
+                    </div>
+                </div>
+            }
+
+            <div class="bgc-basket-checkout-container">
+                <div class="bgc-basket-checkout">
+                    <div>
+                        <div class="bgc-basket-checkout-subtotal">
+                            Subtotal
+                        </div>
+                        <div class="bgc-basket-checkout-items-amount">
+                            @CustomerBasket.Items?.Count()
+                        </div>
+                    </div>
+                    <div class="bgc-basket-checkout-items-price">@CustomerBasket.CalculateTotal()</div>
+                </div>
+                <button class="bgc-button">
+                    Checkout
+                </button>
+            </div>
+        </div>
+    }
+</body>

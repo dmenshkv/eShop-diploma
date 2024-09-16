@@ -14,10 +14,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Catalog.Entites\Catalog.Entites.csproj" />
-    <ProjectReference Include="..\Catalog.Models\Catalog.Models.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Repositories\Interfaces\" />
   </ItemGroup>
   <ItemGroup>

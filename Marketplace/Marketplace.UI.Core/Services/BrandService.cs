@@ -1,8 +1,4 @@
-﻿using Marketplace.Models.Requests.Catalog;
-using Marketplace.Models.ViewModels.Catalog;
-using Marketplace.UI.Core.Constants;
-
-namespace Marketplace.UI.Core.Services;
+﻿namespace Marketplace.UI.Core.Services;
 
 public class BrandService : BaseService<BrandViewModel>, IBrandService
 {
@@ -15,7 +11,7 @@ public class BrandService : BaseService<BrandViewModel>, IBrandService
     {
         _appSettings = appSettings;
 
-        _baseApiPath = string.Format(RouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.Brand);
+        _baseApiPath = string.Format(ApiRouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.Brand);
     }
 
     public async Task<BrandViewModel> CreateAsync(CreateBrandRequest request)

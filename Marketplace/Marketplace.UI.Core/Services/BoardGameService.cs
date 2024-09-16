@@ -1,8 +1,4 @@
-﻿using Marketplace.Models.Requests.Catalog;
-using Marketplace.Models.ViewModels.Catalog;
-using Marketplace.UI.Core.Constants;
-
-namespace Marketplace.UI.Core.Services;
+﻿namespace Marketplace.UI.Core.Services;
 
 public class BoardGameService : BaseService<BoardGameViewModel>, IBoardGameService
 {
@@ -20,7 +16,7 @@ public class BoardGameService : BaseService<BoardGameViewModel>, IBoardGameServi
         _appSettings = appSettings;
         _urlBuilderService = uriBuilderService;
 
-        _baseApiPath = string.Format(RouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.BoardGame);
+        _baseApiPath = string.Format(ApiRouteTemplates.ApiFormat, _appSettings.Value.CatalogUrl, ApiEndpoints.BoardGame);
     }
 
     public async Task<BoardGameViewModel> CreateAsync(CreateBoardGameRequest request)

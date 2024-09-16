@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Basket.DataAccess.Constants;
+﻿namespace Basket.DataAccess.Constants;
 
 [ExcludeFromCodeCoverage]
 public static class ErrorMessages

@@ -1,6 +1,6 @@
-﻿using Marketplace.Models.Constants;
-using Marketplace.Models.ViewModels.Catalog;
-using Marketplace.Models.ViewModels.Filters;
+﻿using Marketplace.UI.Core.Models.Constants;
+using Marketplace.UI.Core.Models.ViewModels.Catalog;
+using Marketplace.UI.Core.Models.ViewModels.Filters;
 
 namespace Marketplace.UI.Pages.Catalog;
 

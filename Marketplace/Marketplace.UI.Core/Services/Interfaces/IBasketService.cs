@@ -1,6 +1,6 @@
-﻿using Marketplace.Models.Requests.Basket;
-using Marketplace.Models.Responses.Basket;
-using Marketplace.Models.ViewModels.Basket;
+﻿using Marketplace.UI.Core.Models.Requests.Basket;
+using Marketplace.UI.Core.Models.Responses.Basket;
+using Marketplace.UI.Core.Models.ViewModels.Basket;
 
 namespace Marketplace.UI.Core.Services.Interfaces;
 

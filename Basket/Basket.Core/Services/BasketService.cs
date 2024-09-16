@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Basket.Core.Constants;
+using Basket.Core.Models.Requests;
+using Basket.Core.Models.Responses;
 using Basket.Core.Services.Interfaces;
+using Basket.DataAccess.Entities.Common;
 using Basket.DataAccess.Repositories.Interfaces;
-using Basket.Entites.Common;
-using Basket.Models.Requests;
-using Basket.Models.Responses;
 
 namespace Basket.Core.Services;
 

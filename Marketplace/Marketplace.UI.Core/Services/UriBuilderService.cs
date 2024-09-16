@@ -1,6 +1,6 @@
 ﻿using System.Text;
-using Marketplace.Models.Constants;
-using Marketplace.Models.ViewModels.Filters;
+using Marketplace.UI.Core.Models.Constants;
+using Marketplace.UI.Core.Models.ViewModels.Filters;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Marketplace.UI.Core.Services;

@@ -1,7 +1,4 @@
-﻿using Marketplace.Models.Requests.Catalog;
-using Marketplace.Models.ViewModels.Catalog;
-
-namespace Marketplace.UI.Core.Services.Interfaces;
+﻿namespace Marketplace.UI.Core.Services.Interfaces;
 
 public interface IMechanicService
 {
